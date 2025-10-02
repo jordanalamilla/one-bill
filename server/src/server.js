@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
-import billRoutes from './src/routes/billRoutes.js';
+import billRoutes from './routes/billRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;

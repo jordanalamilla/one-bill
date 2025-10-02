@@ -4,7 +4,7 @@ import { getAllBills, createBill, updateBill, deleteBill } from '../controllers/
 const router = express.Router();
 
 // GET
-router.use('/', getAllBills);
+router.get('/', getAllBills);
 
 // POST
 router.post('/', createBill);
