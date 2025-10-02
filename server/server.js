@@ -1,13 +1,12 @@
 import 'dotenv/config';
 import express from 'express';
+import billRoutes from './src/routes/billRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Routes
-app.get('/api', (req, res) => {
-    res.status(200).send("This is the api page. Sorry I'm naked, you're pretty early.");
-});
+app.use('/api/bills', billRoutes);
 
 // Start the server.
 app.listen(PORT, () => {
