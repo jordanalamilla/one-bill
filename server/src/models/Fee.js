@@ -7,9 +7,10 @@
  * Each fee has a name and an amount.
  */
 
+import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
-const feeSchema = new Schema(
+export const feeSchema = new Schema(
     {
         feeName: {
             type: String,

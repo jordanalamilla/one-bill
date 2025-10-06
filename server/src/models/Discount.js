@@ -8,9 +8,10 @@
  * Each Discount has a name and an amount.
  */
 
+import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
-const discountSchema = new Schema(
+export const discountSchema = new Schema(
     {
         discountName: {
             type: String,

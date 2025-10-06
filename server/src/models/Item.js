@@ -7,9 +7,10 @@
  * Each Item has a name, a quantity and a subtotal.
  */
 
+import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
-const itemSchema = new Schema(
+export const itemSchema = new Schema(
     {
         itemName: {
             type: String,

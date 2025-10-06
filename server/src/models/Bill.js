@@ -7,12 +7,13 @@
  * Each Bill has a name, tax rate, array of Orders, array of Fees, array of Discounts, total amount, and paid status.
  */
 
+import mongoose from "mongoose";
 import { Schema } from "mongoose";
 import { orderSchema } from "./Order.js";
 import { feeSchema } from "./Fee.js";
 import { discountSchema } from "./Discount.js";
 
-const billSchema = new Schema(
+export const billSchema = new Schema(
     {
         billName: {
             type: String,

@@ -7,10 +7,11 @@
  * Each Order has a person name, an array of items, and a subtotal.
  */
 
+import mongoose from "mongoose";
 import { Schema } from "mongoose";
 import { itemSchema } from "./Item.js";
 
-const orderSchema = new Schema(
+export const orderSchema = new Schema(
     {
         orderPersonName: String,
         orderItems: [itemSchema],
