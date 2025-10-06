@@ -1,6 +1,15 @@
+import Bill from "../models/Bill.js";
+
 // GET
-export const getAllBills = (req, res) => {
-    res.status(200).send("This is the api page. Made by jord.");
+export async function getAllBills(req, res) {
+    try {
+        const bills = await Bill.find();
+        res.status(200).json(bills);
+
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+        console.error('Error in getAllBills() controller: ', error.message);
+    }
 }
 
 // POST
