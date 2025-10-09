@@ -23,17 +23,17 @@ export const billSchema = new Schema(
             type: Number,
             required: true,
         },
-        billOrders: [orderSchema],
-        billFees: [feeSchema],
-        billDiscounts: [discountSchema],
-        billTotal: {
-            type: Number,
-            required: true,
-        },
-        billPaid: {
-            type: Boolean,
-            default: false
-        }
+        // billOrders: [orderSchema],
+        // billFees: [feeSchema],
+        // billDiscounts: [discountSchema],
+        // billTotal: {
+        //     type: Number,
+        //     required: true,
+        // },
+        // billPaid: {
+        //     type: Boolean,
+        //     default: false
+        // }
     },
     {
         timestamps: true

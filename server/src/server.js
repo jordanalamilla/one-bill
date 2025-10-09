@@ -9,6 +9,9 @@ const PORT = process.env.PORT || 3001;
 // Connect to the database.
 connectDB();
 
+// Middleware.
+app.use(express.json());
+
 // Use the routes.
 app.use('/api/bills', billRoutes);
 

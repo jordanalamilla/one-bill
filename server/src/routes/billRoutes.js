@@ -10,9 +10,9 @@ router.get('/', getAllBills);
 router.post('/', createBill);
 
 // PUT
-router.post('/:id', updateBill);
+router.put('/:id', updateBill);
 
 // DELETE
 router.delete('/:id', deleteBill);
 
-export default router;
+export default router; 
