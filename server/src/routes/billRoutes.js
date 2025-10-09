@@ -1,5 +1,8 @@
 import express from 'express';
-import { getAllBills, createBill, updateBill, deleteBill } from '../controllers/billController.js';
+import { getAllBills } from '../controllers/getAllBills.js';
+import { createBill } from '../controllers/createBill.js';
+import { updateBill } from '../controllers/updateBill.js';
+import { deleteBill } from '../controllers/deleteBill.js';
 
 const router = express.Router();
 
