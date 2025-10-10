@@ -16,13 +16,20 @@ export const itemSchema = new Schema(
             type: String,
             required: true,
         },
+        itemPrice: {
+            type: Number,
+            required: true,
+        },
         itemQuantity: {
             type: Number,
             required: true,
             min: 1,
             default: 1,
         },
-        itemSubTotal: Number,
+        itemSubTotal: {
+            type: Number,
+            default: 0,
+        }
     },
     {
         timestamps: true

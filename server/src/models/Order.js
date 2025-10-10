@@ -15,7 +15,10 @@ export const orderSchema = new Schema(
     {
         orderPersonName: String,
         orderItems: [itemSchema],
-        orderSubTotal: Number,
+        orderSubTotal: {
+            type: Number,
+            default: 0,
+        }
     },
     {
         timestamps: true
