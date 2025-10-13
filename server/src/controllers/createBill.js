@@ -41,7 +41,7 @@ export const createBill = (req, res) => {
             billDiscounts: discounts,
             billOrdersCount: orders.length,
             billOrdersSubTotal: calculateOrdersTotal(orders),
-            billTaxTotal: calculateTaxTotal(billTaxRate, calculateOrdersTotal(orders)),
+            billTaxTotal: calculateTaxTotal(billTaxRate, calculateOrdersTotal(orders), fees),
             billFeesTotal: calculateFeesTotal(fees),
             billDiscountsTotal: calculateDiscountsTotal(discounts, calculateOrdersTotal(orders)),
             billTotal: calculateBillTotal(orders, fees, discounts, billTaxRate),
@@ -51,7 +51,7 @@ export const createBill = (req, res) => {
         // newBill.save();
 
         newBill.billOrders.forEach(order => {
-            youOweMe(order, newBill);
+            youOweMe(order, newBill, fees);
         });
 
         // // Success.
@@ -64,14 +64,14 @@ export const createBill = (req, res) => {
     } catch (error) {
         // Error handling.
         res.status(500).send("Internal Server Error");
-        console.error('Error in createBill() controller: ', error.message);
+        console.error('Error in createBill() controller: ', error);
     }
 }
 
 /**
  * You Owe Me
  * 
- * Calculate how much an Order owes based on the subtotal, the tax rate, share of fees and weighted discounts
+ * Calculate how much an Order owes based on the subtotal, the tax rate and share of weighted fees and discounts
  * then set the orderWeight and orderOwe fields in the Order document.
  * 
  * @param {Object} order 
@@ -82,8 +82,8 @@ function youOweMe(order, bill) {
     const { billTaxRate, billOrdersCount, billFeesTotal, billDiscountsTotal } = bill;
 
     const orderTaxTotal = calculateTaxTotal(billTaxRate, orderSubTotal);
-    const orderFeesTotal = Math.round((billFeesTotal / billOrdersCount) * 100) / 100;
     const orderWeight = orderSubTotal / bill.billOrdersSubTotal;
+    const orderFeesTotal = Math.round((calculateFeesTotalWithTax(bill.billFees, billTaxRate) / billOrdersCount) * 100) / 100;
     const orderDiscountTotal = Math.round((billDiscountsTotal * orderWeight) * 100) / 100;
     const orderOwe = Math.round((orderSubTotal + orderTaxTotal + orderFeesTotal - orderDiscountTotal) * 100) / 100;
 
@@ -104,15 +104,15 @@ function youOweMe(order, bill) {
  */
 function calculateBillTotal(orders, fees, discounts, taxRate) {
     const ordersTotal = calculateOrdersTotal(orders);
-    const taxTotal = calculateTaxTotal(taxRate, ordersTotal);
     const feesTotal = calculateFeesTotal(fees);
     const discountsTotal = calculateDiscountsTotal(discounts, ordersTotal);
+    const taxTotal = calculateTaxTotal(taxRate, ordersTotal, fees);
 
     return Math.round((ordersTotal - discountsTotal + feesTotal + taxTotal) * 100) / 100;
 }
 
 /**
- * Calculate Tax Total
+ * Calculate Bill Tax Total
  * 
  * Multiply the tax rate by the orders total to get the tax total for a Bill or an Order.
  * 
@@ -120,8 +120,18 @@ function calculateBillTotal(orders, fees, discounts, taxRate) {
  * @param {Number} ordersTotal
  * @returns Number
  */
-function calculateTaxTotal(taxRate, total) {
-    return Math.round((total * taxRate) * 100) / 100;
+function calculateTaxTotal(taxRate, total, fees = false) {
+    let taxTotal = total * taxRate;
+
+    if (fees) {
+        fees.forEach(fee => {
+            if (fee.feeIsTaxed) {
+                taxTotal += fee.feeAmount * taxRate;
+            }
+        });
+    }
+
+    return Math.round(taxTotal * 100) / 100;
 }
 
 /**
@@ -134,6 +144,28 @@ function calculateTaxTotal(taxRate, total) {
  */
 function calculateFeesTotal(fees) {
     return fees.reduce((total, fee) => total + fee.feeAmount, 0);
+}
+
+/**
+ * Calculate Fees Total With Tax
+ * 
+ * Add the amounts for each Fee to get the total fees for a Bill.
+ * 
+ * @param {Array} fees 
+ * @returns Number
+ */
+function calculateFeesTotalWithTax(fees, taxRate) {
+    let feesTotalWithTax = 0;
+
+    fees.forEach(fee => {
+        if (fee.feeIsTaxed) {
+            feesTotalWithTax += fee.feeAmount + (fee.feeAmount * taxRate);
+        } else {
+            feesTotalWithTax += fee.feeAmount;
+        }
+    });
+
+    return feesTotalWithTax;
 }
 
 /**
@@ -219,11 +251,12 @@ function addOrder(order) {
  * @returns Object
  */
 function addFee(fee) {
-    const { feeName, feeAmount } = fee;
+    const { feeName, feeAmount, feeIsTaxed } = fee;
 
     const newFee = new Fee({
         feeName,
-        feeAmount
+        feeAmount,
+        feeIsTaxed
     });
 
     return newFee;
@@ -248,7 +281,11 @@ function addDiscount(discount) {
     return newDiscount;
 }
 
-/** Example Bill + 
+/** 
+ * skip doesnt tax service fee
+ * uber taxes delivery fee, service fee, NOT tip
+ * 
+ * Example Bill + 
 
 {
     "billName": "Taka Sushi",

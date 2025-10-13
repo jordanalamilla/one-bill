@@ -20,6 +20,10 @@ export const feeSchema = new Schema(
             type: Number,
             required: true,
         },
+        feeIsTaxed: {
+            type: Boolean,
+            default: false,
+        }
     },
     {
         timestamps: true
