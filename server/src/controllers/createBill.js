@@ -39,6 +39,7 @@ export const createBill = (req, res) => {
             billOrders: orders,
             billFees: fees,
             billDiscounts: discounts,
+            billOrdersCount: orders.length,
             billOrdersSubTotal: calculateOrdersTotal(orders),
             billTaxTotal: calculateTaxTotal(billTaxRate, calculateOrdersTotal(orders)),
             billFeesTotal: calculateFeesTotal(fees),
@@ -48,6 +49,10 @@ export const createBill = (req, res) => {
         });
 
         // newBill.save();
+
+        newBill.billOrders.forEach(order => {
+            youOweMe(order, newBill);
+        });
 
         // // Success.
         // res.status(201).json({
@@ -61,6 +66,29 @@ export const createBill = (req, res) => {
         res.status(500).send("Internal Server Error");
         console.error('Error in createBill() controller: ', error.message);
     }
+}
+
+/**
+ * You Owe Me
+ * 
+ * Calculate how much an Order owes based on the subtotal, the tax rate, share of fees and weighted discounts
+ * then set the orderWeight and orderOwe fields in the Order document.
+ * 
+ * @param {Object} order 
+ * @param {Object} bill 
+ */
+function youOweMe(order, bill) {
+    const { orderSubTotal } = order;
+    const { billTaxRate, billOrdersCount, billFeesTotal, billDiscountsTotal } = bill;
+
+    const orderTaxTotal = calculateTaxTotal(billTaxRate, orderSubTotal);
+    const orderFeesTotal = Math.round((billFeesTotal / billOrdersCount) * 100) / 100;
+    const orderWeight = orderSubTotal / bill.billOrdersSubTotal;
+    const orderDiscountTotal = Math.round((billDiscountsTotal * orderWeight) * 100) / 100;
+    const orderOwe = Math.round((orderSubTotal + orderTaxTotal + orderFeesTotal - orderDiscountTotal) * 100) / 100;
+
+    order.orderWeight = orderWeight;
+    order.orderOwe = orderOwe;
 }
 
 /**
@@ -297,7 +325,7 @@ function addDiscount(discount) {
             "discountAmount": 20
         }
     ],
-    "billPaid": true
+    "billPaid": false
 }
 
 */

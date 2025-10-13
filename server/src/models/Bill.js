@@ -26,6 +26,10 @@ export const billSchema = new Schema(
         billOrders: [orderSchema],
         billFees: [feeSchema],
         billDiscounts: [discountSchema],
+        billOrdersCount: {
+            type: Number,
+            default: 0,
+        },
         billOrdersSubTotal: {
             type: Number,
             default: 0,

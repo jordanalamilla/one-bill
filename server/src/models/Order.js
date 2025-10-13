@@ -18,6 +18,14 @@ export const orderSchema = new Schema(
         orderSubTotal: {
             type: Number,
             default: 0,
+        },
+        orderWeight: {
+            type: Number,
+            default: 0,
+        },
+        orderOwe: {
+            type: Number,
+            default: 0,
         }
     },
     {
