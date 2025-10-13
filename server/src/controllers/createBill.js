@@ -19,20 +19,20 @@ export const createBill = (req, res) => {
 
         // Create Orders for each Order in the request and add them to the orders array.
         req.body.billOrders.forEach(order => {
-            orders.push(addOrder(order));
+            orders.push(createOrder(order));
         });
 
         // Create Fees for each Fee in the request and add them to the fees array.
         req.body.billFees.forEach(fee => {
-            fees.push(addFee(fee));
+            fees.push(createFee(fee));
         });
 
         // Create Discounts for each Discount in the request and add them to the discounts array.
         req.body.billDiscounts.forEach(discount => {
-            discounts.push(addDiscount(discount));
+            discounts.push(createDiscount(discount));
         });
 
-        // Create a Bill and try to save it to the database.
+        // Assemble the Bill.
         const newBill = new Bill({
             billName,
             billTaxRate,
@@ -48,18 +48,19 @@ export const createBill = (req, res) => {
             billPaid,
         });
 
-        // newBill.save();
-
+        // Calculate what everyone owes.
         newBill.billOrders.forEach(order => {
-            youOweMe(order, newBill, fees);
+            calculateOrderOwe(order, newBill, fees);
         });
 
-        // // Success.
-        // res.status(201).json({
-        //     "message": `${billName} bill created.`
-        // });
+        // Save the Bill to the database.
+        newBill.save();
 
-        res.status(201).json({ newBill });
+        // Success.
+        res.status(201).json({
+            "message": `${billName} bill created.`,
+            "Bill": newBill
+        });
 
     } catch (error) {
         // Error handling.
@@ -69,7 +70,7 @@ export const createBill = (req, res) => {
 }
 
 /**
- * You Owe Me
+ * Calculate Order Owe
  * 
  * Calculate how much an Order owes based on the subtotal, the tax rate and share of weighted fees and discounts
  * then set the orderWeight and orderOwe fields in the Order document.
@@ -77,7 +78,7 @@ export const createBill = (req, res) => {
  * @param {Object} order 
  * @param {Object} bill 
  */
-function youOweMe(order, bill) {
+function calculateOrderOwe(order, bill) {
     const { orderSubTotal } = order;
     const { billTaxRate, billOrdersCount, billFeesTotal, billDiscountsTotal } = bill;
 
@@ -212,7 +213,7 @@ function calculateDiscountsTotal(discounts, ordersTotal) {
  * @param {Object} order 
  * @returns Object
  */
-function addOrder(order) {
+function createOrder(order) {
     const orderPersonName = order.orderPersonName;
     const orderItems = [];
 
@@ -250,7 +251,7 @@ function addOrder(order) {
  * @param {Object} fee 
  * @returns Object
  */
-function addFee(fee) {
+function createFee(fee) {
     const { feeName, feeAmount, feeIsTaxed } = fee;
 
     const newFee = new Fee({
@@ -270,7 +271,7 @@ function addFee(fee) {
  * @param {Object} discount 
  * @returns Object
  */
-function addDiscount(discount) {
+function createDiscount(discount) {
     const { discountName, discountAmount } = discount;
 
     const newDiscount = new Discount({
