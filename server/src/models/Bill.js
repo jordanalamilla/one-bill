@@ -11,7 +11,7 @@ import mongoose from "mongoose";
 import { Schema } from "mongoose";
 import { orderSchema } from "./Order.js";
 import { feeSchema } from "./Fee.js";
-import { discountSchema } from "./Discount.js";
+import { discountSchema } from "./Discount.js"; 7
 
 export const billSchema = new Schema(
     {
@@ -26,14 +26,30 @@ export const billSchema = new Schema(
         billOrders: [orderSchema],
         billFees: [feeSchema],
         billDiscounts: [discountSchema],
-        billPaid: {
-            type: Boolean,
-            default: false
+        billOrdersSubTotal: {
+            type: Number,
+            default: 0,
+        },
+        billTaxTotal: {
+            type: Number,
+            default: 0,
+        },
+        billFeesTotal: {
+            type: Number,
+            default: 0,
+        },
+        billDiscountsTotal: {
+            type: Number,
+            default: 0,
         },
         billTotal: {
             type: Number,
             required: true,
-        }
+        },
+        billPaid: {
+            type: Boolean,
+            default: false
+        },
     },
     {
         timestamps: true
