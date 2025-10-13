@@ -80,11 +80,11 @@ export const createBill = (req, res) => {
  */
 function calculateOrderOwe(order, bill) {
     const { orderSubTotal } = order;
-    const { billTaxRate, billOrdersCount, billFeesTotal, billDiscountsTotal } = bill;
+    const { billTaxRate, billDiscountsTotal } = bill;
 
     const orderTaxTotal = calculateTaxTotal(billTaxRate, orderSubTotal);
     const orderWeight = orderSubTotal / bill.billOrdersSubTotal;
-    const orderFeesTotal = Math.round((calculateFeesTotalWithTax(bill.billFees, billTaxRate) / billOrdersCount) * 100) / 100;
+    const orderFeesTotal = Math.round((calculateFeesTotalWithTax(bill.billFees, billTaxRate) * orderWeight) * 100) / 100;
     const orderDiscountTotal = Math.round((billDiscountsTotal * orderWeight) * 100) / 100;
     const orderOwe = Math.round((orderSubTotal + orderTaxTotal + orderFeesTotal - orderDiscountTotal) * 100) / 100;
 
