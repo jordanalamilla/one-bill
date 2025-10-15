@@ -39,6 +39,36 @@ export async function updateBill(req, res) {
             });
         }
 
+        /**
+         * For Fee updates.
+         */
+        if (req.body.feeId !== undefined) {
+
+            // Get the front end request data.
+            const { feeId, feeName, feeAmount, feeIsTaxed } = req.body;
+
+            // Find the Bill, find the Fee and update the desired fields.
+            await Bill.updateOne(
+                { _id: req.params.id, 'billFees._id': feeId },
+                {
+                    $set: {
+                        'billFees.$.feeName': feeName,
+                        'billFees.$.feeAmount': feeAmount,
+                        'billFees.$.feeIsTaxed': feeIsTaxed
+                    }
+                },
+                { new: true }
+
+            ).then(updatedBill => {
+
+                // Success response.
+                res.status(201).json({
+                    "message": `Fee updated.`,
+                    "Bill": updatedBill
+                });
+            });
+        }
+
     } catch (error) {
         // Error handling.
         res.status(404).json({ message: "Bill not found." });
