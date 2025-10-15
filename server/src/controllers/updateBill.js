@@ -12,6 +12,38 @@ export async function updateBill(req, res) {
     try {
 
         /**
+         * For Bill updates.
+         */
+        if (
+            req.body.billName !== undefined ||
+            req.body.billTaxRate !== undefined ||
+            req.body.billPaid !== undefined
+        ) {
+
+            // Get the front end request data.
+            const { billName, billTaxRate, billPaid } = req.body;
+
+            // Find the Bill, find the Order and update the desired fields.
+            await Bill.findByIdAndUpdate(
+                req.params.id,
+                {
+                    billName,
+                    billTaxRate,
+                    billPaid
+                },
+                { new: true }
+
+            ).then(updatedBill => {
+
+                // Success response.
+                res.status(201).json({
+                    "message": `Bill updated.`,
+                    "Bill": updatedBill
+                });
+            });
+        }
+
+        /**
          * For Order updates.
          */
         if (req.body.orderId !== undefined) {
