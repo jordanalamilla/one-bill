@@ -7,20 +7,37 @@
 import Bill from "../models/Bill.js";
 
 export async function updateBill(req, res) {
-
-    // Get the Bill data from the client.
-    const { billName, billTaxRate } = req.body;
+    const { billName } = req.body;
 
     try {
-        // Find the Bill by ID and update it with the new data.
-        await Bill.findByIdAndUpdate(
-            req.params.id,
-            { billName, billTaxRate },
-            { new: true }
 
-        ).then(updatedBill => {
-            res.status(200).json({ updatedBill });
-        });
+        /**
+         * For Order updates.
+         */
+        if (req.body.orderId !== undefined) {
+
+            // Get the front end request data.
+            const { orderId, orderPersonName } = req.body;
+
+            // Find the Bill, find the Order and update the desired fields.
+            await Bill.updateOne(
+                { _id: req.params.id, 'billOrders._id': orderId },
+                {
+                    $set: {
+                        'billOrders.$.orderPersonName': orderPersonName
+                    }
+                },
+                { new: true }
+
+            ).then(updatedBill => {
+
+                // Success response.
+                res.status(201).json({
+                    "message": `Order updated.`,
+                    "Bill": updatedBill
+                });
+            });
+        }
 
     } catch (error) {
         // Error handling.
