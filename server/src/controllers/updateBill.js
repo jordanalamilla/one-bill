@@ -23,7 +23,7 @@ export async function updateBill(req, res) {
             // Get the front end request data.
             const { billName, billTaxRate, billPaid } = req.body;
 
-            // Find the Bill, find the Order and update the desired fields.
+            // Find the Bill and update the desired fields.
             await Bill.findByIdAndUpdate(
                 req.params.id,
                 {
@@ -36,7 +36,7 @@ export async function updateBill(req, res) {
             ).then(updatedBill => {
 
                 // Success response.
-                res.status(201).json({
+                res.status(200).json({
                     "message": `Bill updated.`,
                     "Bill": updatedBill
                 });
@@ -64,7 +64,7 @@ export async function updateBill(req, res) {
             ).then(updatedBill => {
 
                 // Success response.
-                res.status(201).json({
+                res.status(200).json({
                     "message": `Order updated.`,
                     "Bill": updatedBill
                 });
@@ -94,8 +94,37 @@ export async function updateBill(req, res) {
             ).then(updatedBill => {
 
                 // Success response.
-                res.status(201).json({
+                res.status(200).json({
                     "message": `Fee updated.`,
+                    "Bill": updatedBill
+                });
+            });
+        }
+
+        /**
+         * For Discount updates.
+         */
+        if (req.body.discountId !== undefined) {
+
+            // Get the front end request data.
+            const { discountId, discountName, discountAmount } = req.body;
+
+            // Find the Bill, find the Discount and update the desired fields.
+            await Bill.updateOne(
+                { _id: req.params.id, 'billDiscounts._id': discountId },
+                {
+                    $set: {
+                        'billDiscounts.$.discountName': discountName,
+                        'billDiscounts.$.discountAmount': discountAmount,
+                    }
+                },
+                { new: true }
+
+            ).then(updatedBill => {
+
+                // Success response.
+                res.status(200).json({
+                    "message": `Discount updated.`,
                     "Bill": updatedBill
                 });
             });
