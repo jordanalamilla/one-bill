@@ -46,7 +46,7 @@ export async function updateBill(req, res) {
         /**
          * For Order updates.
          */
-        if (req.body.orderId !== undefined) {
+        if (req.body.orderId !== undefined && req.body.itemId === undefined) {
 
             // Get the front end request data.
             const { orderId, orderPersonName } = req.body;
@@ -66,6 +66,39 @@ export async function updateBill(req, res) {
                 // Success response.
                 res.status(200).json({
                     "message": `Order updated.`,
+                    "Bill": updatedBill
+                });
+            });
+        }
+
+        /**
+         * For Item updates.
+         */
+        if (req.body.itemId !== undefined && req.body.orderId !== undefined) {
+
+            // Get the front end request data.
+            const { itemId, orderId, itemName, itemPrice, itemQuantity } = req.body;
+
+            // Find the Bill, find the Order, find the Item and update the desired fields.
+            await Bill.findOneAndUpdate(
+                { _id: req.params.id },
+                {
+                    $set: {
+                        'billOrders.$[order].orderItems.$[item].itemName': itemName,
+                        'billOrders.$[order].orderItems.$[item].itemPrice': itemPrice,
+                        'billOrders.$[order].orderItems.$[item].itemQuantity': itemQuantity
+                    }
+                },
+                {
+                    arrayFilters: [{ 'order._id': orderId }, { 'item._id': itemId }],
+                    new: true
+                }
+
+            ).then(updatedBill => {
+
+                // Success response.
+                res.status(200).json({
+                    "message": `Item updated.`,
                     "Bill": updatedBill
                 });
             });

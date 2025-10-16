@@ -206,7 +206,7 @@ function calculateDiscountsTotal(discounts, ordersTotal) {
 }
 
 /**
- * Add Order
+ * Create Order
  * 
  * Create an Order document from the request data, including creating each Item subdocument in the Order.
  * 
@@ -244,7 +244,7 @@ function createOrder(order) {
 }
 
 /**
- * Add Fee
+ * Create Fee
  * 
  * Create a Fee document from the request data.
  * 
@@ -264,7 +264,7 @@ function createFee(fee) {
 }
 
 /**
- * Add Discount
+ * Create Discount
  * 
  * Create a Discount document from the request data.
  * 
