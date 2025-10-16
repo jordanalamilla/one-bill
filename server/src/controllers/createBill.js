@@ -9,6 +9,7 @@ import Order from "../models/Order.js";
 import Item from "../models/Item.js";
 import Fee from "../models/Fee.js";
 import Discount from "../models/Discount.js";
+import { calculateOrdersTotal, calculateTaxTotal, calculateFeesTotal, calculateDiscountsTotal, calculateBillTotal, calculateOrderOwe } from "./utilities/billCalculations.js";
 
 export const createBill = (req, res) => {
     try {
@@ -70,139 +71,42 @@ export const createBill = (req, res) => {
 }
 
 /**
- * Calculate Order Owe
+ * Create Fee
  * 
- * Calculate how much an Order owes based on the subtotal, the tax rate and share of weighted fees and discounts
- * then set the orderWeight and orderOwe fields in the Order document.
+ * Create a Fee document from the request data.
  * 
- * @param {Object} order 
- * @param {Object} bill 
+ * @param {Object} fee 
+ * @returns Object
  */
-function calculateOrderOwe(order, bill) {
-    const { orderSubTotal } = order;
-    const { billTaxRate, billDiscountsTotal } = bill;
+function createFee(fee) {
+    const { feeName, feeAmount, feeIsTaxed } = fee;
 
-    const orderTaxTotal = calculateTaxTotal(billTaxRate, orderSubTotal);
-    const orderWeight = orderSubTotal / bill.billOrdersSubTotal;
-    const orderFeesTotal = Math.round((calculateFeesTotalWithTax(bill.billFees, billTaxRate) * orderWeight) * 100) / 100;
-    const orderDiscountTotal = Math.round((billDiscountsTotal * orderWeight) * 100) / 100;
-    const orderOwe = Math.round((orderSubTotal + orderTaxTotal + orderFeesTotal - orderDiscountTotal) * 100) / 100;
-
-    order.orderWeight = orderWeight;
-    order.orderOwe = orderOwe;
-}
-
-/**
- * Calculate Bill Total
- * 
- * Add the totals for orders, fees and taxes and subtract the total for discounts to get the total amount for a Bill.
- * 
- * @param {Array} orders 
- * @param {Array} fees 
- * @param {Array} discounts 
- * @param {Number} taxRate 
- * @returns Number
- */
-function calculateBillTotal(orders, fees, discounts, taxRate) {
-    const ordersTotal = calculateOrdersTotal(orders);
-    const feesTotal = calculateFeesTotal(fees);
-    const discountsTotal = calculateDiscountsTotal(discounts, ordersTotal);
-    const taxTotal = calculateTaxTotal(taxRate, ordersTotal, fees);
-
-    return Math.round((ordersTotal - discountsTotal + feesTotal + taxTotal) * 100) / 100;
-}
-
-/**
- * Calculate Bill Tax Total
- * 
- * Multiply the tax rate by the orders total to get the tax total for a Bill or an Order.
- * 
- * @param {Number} taxRate 
- * @param {Number} ordersTotal
- * @returns Number
- */
-function calculateTaxTotal(taxRate, total, fees = false) {
-    let taxTotal = total * taxRate;
-
-    if (fees) {
-        fees.forEach(fee => {
-            if (fee.feeIsTaxed) {
-                taxTotal += fee.feeAmount * taxRate;
-            }
-        });
-    }
-
-    return Math.round(taxTotal * 100) / 100;
-}
-
-/**
- * Calculate Fees Total
- * 
- * Add the amounts for each Fee to get the total fees for a Bill.
- * 
- * @param {Array} fees 
- * @returns Number
- */
-function calculateFeesTotal(fees) {
-    return fees.reduce((total, fee) => total + fee.feeAmount, 0);
-}
-
-/**
- * Calculate Fees Total With Tax
- * 
- * Add the amounts for each Fee to get the total fees for a Bill.
- * 
- * @param {Array} fees 
- * @returns Number
- */
-function calculateFeesTotalWithTax(fees, taxRate) {
-    let feesTotalWithTax = 0;
-
-    fees.forEach(fee => {
-        if (fee.feeIsTaxed) {
-            feesTotalWithTax += fee.feeAmount + (fee.feeAmount * taxRate);
-        } else {
-            feesTotalWithTax += fee.feeAmount;
-        }
+    const newFee = new Fee({
+        feeName,
+        feeAmount,
+        feeIsTaxed
     });
 
-    return feesTotalWithTax;
+    return newFee;
 }
 
 /**
- * Calculate Orders Total
+ * Create Discount
  * 
- * Add the subtotals for each Order in a Bill to get the subtotal for a Bill.
+ * Create a Discount document from the request data.
  * 
- * @param {Array} orders 
- * @returns Number
+ * @param {Object} discount 
+ * @returns Object
  */
-function calculateOrdersTotal(orders) {
-    return orders.reduce((total, order) => total + order.orderSubTotal, 0)
-}
+function createDiscount(discount) {
+    const { discountName, discountAmount } = discount;
 
-/**
- * Calculate Discounts Total
- * 
- * Add the amounts for each Discount to get the total discount for a Bill.
- * If a discount amount is less than 1, treat it as a percentage.
- * 
- * @param {Array} discounts 
- * @param {Number} ordersTotal 
- * @returns Number
- */
-function calculateDiscountsTotal(discounts, ordersTotal) {
-    let totalDiscount = 0;
-
-    discounts.forEach(discount => {
-        if (discount.discountAmount < 1) {
-            totalDiscount += ordersTotal * discount.discountAmount;
-        } else {
-            totalDiscount += discount.discountAmount;
-        }
+    const newDiscount = new Discount({
+        discountName,
+        discountAmount
     });
 
-    return Math.round(totalDiscount * 100) / 100;
+    return newDiscount;
 }
 
 /**
@@ -241,45 +145,6 @@ function createOrder(order) {
     });
 
     return newOrder;
-}
-
-/**
- * Create Fee
- * 
- * Create a Fee document from the request data.
- * 
- * @param {Object} fee 
- * @returns Object
- */
-function createFee(fee) {
-    const { feeName, feeAmount, feeIsTaxed } = fee;
-
-    const newFee = new Fee({
-        feeName,
-        feeAmount,
-        feeIsTaxed
-    });
-
-    return newFee;
-}
-
-/**
- * Create Discount
- * 
- * Create a Discount document from the request data.
- * 
- * @param {Object} discount 
- * @returns Object
- */
-function createDiscount(discount) {
-    const { discountName, discountAmount } = discount;
-
-    const newDiscount = new Discount({
-        discountName,
-        discountAmount
-    });
-
-    return newDiscount;
 }
 
 /** 
