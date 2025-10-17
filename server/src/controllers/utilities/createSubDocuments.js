@@ -68,8 +68,7 @@ export function createOrder(order) {
         const newItem = new Item({
             itemName,
             itemPrice,
-            itemQuantity,
-            itemSubTotal: itemPrice * itemQuantity
+            itemQuantity
         });
 
         // ... and add it to the orderItems array.

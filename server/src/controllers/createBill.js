@@ -1,5 +1,5 @@
 /**
- * createBill() Controller
+ * Create Bill
  * 
  * Defines the logic for handling the POST request to create a new Bill.
  */

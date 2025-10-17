@@ -1,4 +1,10 @@
 /**
+ * Bill Calculations
+ * 
+ * Contains all functions for calculating all automatically set Bill totals.
+ */
+
+/**
  * Calculate Order Owe
  * 
  * Calculate how much an Order owes based on the subtotal, the tax rate and share of weighted fees and discounts

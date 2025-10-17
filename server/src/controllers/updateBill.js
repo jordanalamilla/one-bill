@@ -5,6 +5,7 @@
  */
 
 import Bill from "../models/Bill.js";
+import { recalculateEntireBill } from "./utilities/billUpdates.js";
 
 export async function updateBill(req, res) {
     const { billName } = req.body;
@@ -24,8 +25,8 @@ export async function updateBill(req, res) {
             const { billName, billTaxRate, billPaid } = req.body;
 
             // Find the Bill and update the desired fields.
-            await Bill.findByIdAndUpdate(
-                req.params.id,
+            await Bill.findOneAndUpdate(
+                { _id: req.params.id },
                 {
                     billName,
                     billTaxRate,
@@ -34,6 +35,9 @@ export async function updateBill(req, res) {
                 { new: true }
 
             ).then(updatedBill => {
+
+                // Recalculate.
+                recalculateEntireBill(updatedBill._id);
 
                 // Success response.
                 res.status(200).json({
@@ -52,14 +56,17 @@ export async function updateBill(req, res) {
             const { orderId, orderPersonName } = req.body;
 
             // Find the Bill, find the Order and update the desired fields.
-            await Bill.updateOne(
-                { _id: req.params.id, 'billOrders._id': orderId },
+            await Bill.findOneAndUpdate(
+                { _id: req.params.id },
                 {
                     $set: {
-                        'billOrders.$.orderPersonName': orderPersonName
+                        'billOrders.$[order].orderPersonName': orderPersonName
                     }
                 },
-                { new: true }
+                {
+                    arrayFilters: [{ "order._id": orderId }],
+                    new: true
+                }
 
             ).then(updatedBill => {
 
@@ -96,6 +103,9 @@ export async function updateBill(req, res) {
 
             ).then(updatedBill => {
 
+                // Recalculate.
+                recalculateEntireBill(updatedBill._id);
+
                 // Success response.
                 res.status(200).json({
                     "message": `Item updated.`,
@@ -113,18 +123,24 @@ export async function updateBill(req, res) {
             const { feeId, feeName, feeAmount, feeIsTaxed } = req.body;
 
             // Find the Bill, find the Fee and update the desired fields.
-            await Bill.updateOne(
-                { _id: req.params.id, 'billFees._id': feeId },
+            await Bill.findOneAndUpdate(
+                { _id: req.params.id },
                 {
                     $set: {
-                        'billFees.$.feeName': feeName,
-                        'billFees.$.feeAmount': feeAmount,
-                        'billFees.$.feeIsTaxed': feeIsTaxed
+                        'billFees.$[fee].feeName': feeName,
+                        'billFees.$[fee].feeAmount': feeAmount,
+                        'billFees.$[fee].feeIsTaxed': feeIsTaxed
                     }
                 },
-                { new: true }
+                {
+                    arrayFilters: [{ 'fee._id': feeId }],
+                    new: true
+                }
 
             ).then(updatedBill => {
+
+                // Recalculate.
+                recalculateEntireBill(updatedBill._id);
 
                 // Success response.
                 res.status(200).json({
@@ -143,17 +159,23 @@ export async function updateBill(req, res) {
             const { discountId, discountName, discountAmount } = req.body;
 
             // Find the Bill, find the Discount and update the desired fields.
-            await Bill.updateOne(
-                { _id: req.params.id, 'billDiscounts._id': discountId },
+            await Bill.findOneAndUpdate(
+                { _id: req.params.id },
                 {
                     $set: {
-                        'billDiscounts.$.discountName': discountName,
-                        'billDiscounts.$.discountAmount': discountAmount,
+                        'billDiscounts.$[discount].discountName': discountName,
+                        'billDiscounts.$[discount].discountAmount': discountAmount,
                     }
                 },
-                { new: true }
+                {
+                    arrayFilters: [{ "discount._id": discountId }],
+                    new: true
+                }
 
             ).then(updatedBill => {
+
+                // Recalculate.
+                recalculateEntireBill(updatedBill._id);
 
                 // Success response.
                 res.status(200).json({

@@ -28,7 +28,10 @@ export const itemSchema = new Schema(
         },
         itemSubTotal: {
             type: Number,
-            default: 0,
+            required: true,
+            default: function () {
+                return this.itemPrice * this.itemQuantity;
+            }
         }
     },
     {
