@@ -30,7 +30,7 @@ export const createBill = (req, res) => {
             discounts.push(createDiscount(discount));
         });
 
-        // Assemble the Bill.
+        // Assemble the Bill. Math.round(() * 100) / 100
         const newBill = new Bill({
             billName,
             billTaxRate,
@@ -38,11 +38,11 @@ export const createBill = (req, res) => {
             billFees: fees,
             billDiscounts: discounts,
             billOrdersCount: orders.length,
-            billOrdersSubTotal: calculateOrdersTotal(orders),
-            billTaxTotal: calculateTaxTotal(billTaxRate, calculateOrdersTotal(orders), fees),
-            billFeesTotal: calculateFeesTotal(fees),
-            billDiscountsTotal: calculateDiscountsTotal(discounts, calculateOrdersTotal(orders)),
-            billTotal: calculateBillTotal(orders, fees, discounts, billTaxRate),
+            billOrdersSubTotal: Math.round((calculateOrdersTotal(orders)) * 100) / 100,
+            billTaxTotal: Math.round((calculateTaxTotal(billTaxRate, calculateOrdersTotal(orders), fees)) * 100) / 100,
+            billFeesTotal: Math.round((calculateFeesTotal(fees)) * 100) / 100,
+            billDiscountsTotal: Math.round((calculateDiscountsTotal(discounts, calculateOrdersTotal(orders))) * 100) / 100,
+            billTotal: Math.round((calculateBillTotal(orders, fees, discounts, billTaxRate)) * 100) / 100,
             billPaid,
         });
 

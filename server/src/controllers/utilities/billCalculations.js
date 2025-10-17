@@ -19,12 +19,12 @@ export function calculateOrderOwe(order, bill) {
 
     const orderTaxTotal = calculateTaxTotal(billTaxRate, orderSubTotal);
     const orderWeight = orderSubTotal / bill.billOrdersSubTotal;
-    const orderFeesTotal = Math.round((calculateFeesTotalWithTax(bill.billFees, billTaxRate) * orderWeight) * 100) / 100;
-    const orderDiscountTotal = Math.round((billDiscountsTotal * orderWeight) * 100) / 100;
-    const orderOwe = Math.round((orderSubTotal + orderTaxTotal + orderFeesTotal - orderDiscountTotal) * 100) / 100;
+    const orderFeesTotal = calculateFeesTotalWithTax(bill.billFees, billTaxRate) * orderWeight;
+    const orderDiscountTotal = billDiscountsTotal * orderWeight;
+    const orderOwe = orderSubTotal + orderTaxTotal + orderFeesTotal - orderDiscountTotal;
 
     order.orderWeight = orderWeight;
-    order.orderOwe = orderOwe;
+    order.orderOwe = Math.round((orderOwe) * 100) / 100;
 }
 
 /**
@@ -44,7 +44,7 @@ export function calculateBillTotal(orders, fees, discounts, taxRate) {
     const discountsTotal = calculateDiscountsTotal(discounts, ordersTotal);
     const taxTotal = calculateTaxTotal(taxRate, ordersTotal, fees);
 
-    return Math.round((ordersTotal - discountsTotal + feesTotal + taxTotal) * 100) / 100;
+    return ordersTotal - discountsTotal + feesTotal + taxTotal;
 }
 
 /**
@@ -67,7 +67,7 @@ export function calculateTaxTotal(taxRate, total, fees = false) {
         });
     }
 
-    return Math.round(taxTotal * 100) / 100;
+    return taxTotal;
 }
 
 /**
@@ -137,5 +137,5 @@ export function calculateDiscountsTotal(discounts, ordersTotal) {
         }
     });
 
-    return Math.round(totalDiscount * 100) / 100;
+    return totalDiscount;
 }
