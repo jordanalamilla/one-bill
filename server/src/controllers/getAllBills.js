@@ -9,7 +9,7 @@ import Bill from "../models/Bill.js";
 export async function getAllBills(req, res) {
     try {
         // Find all Bills and display them.
-        const bills = await Bill.find();
+        const bills = await Bill.find().sort({ createdAt: -1 });
         res.status(200).json(bills);
 
     } catch (error) {
