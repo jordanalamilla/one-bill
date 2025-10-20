@@ -30,7 +30,7 @@ export const createBill = (req, res) => {
             discounts.push(createDiscount(discount));
         });
 
-        // Assemble the Bill. Math.round(() * 100) / 100
+        // Assemble the Bill.
         const newBill = new Bill({
             billName,
             billTaxRate,

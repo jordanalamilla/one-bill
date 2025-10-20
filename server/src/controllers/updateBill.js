@@ -70,6 +70,9 @@ export async function updateBill(req, res) {
 
             ).then(updatedBill => {
 
+                // Recalculate.
+                recalculateEntireBill(updatedBill._id);
+
                 // Success response.
                 res.status(200).json({
                     "message": `Order updated.`,
