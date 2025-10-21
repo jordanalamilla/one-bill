@@ -1,3 +1,9 @@
+/**
+ * MongoDB Configuration.
+ * 
+ * Functionality to connect to the Mongo database with Mongoose.
+ */
+
 import mongoose from "mongoose";
 
 const DB_URI = process.env.DB_URI;
