@@ -1,18 +1,20 @@
 import React from 'react'
 import { Route, Routes } from 'react-router'
 import PageHome from './pages/PageHome'
-import PageCreateOrder from './pages/PageCreateOrder'
-import PageOrder from './pages/PageOrder'
-import PageOrders from './pages/PageOrders'
+import PageCreateBill from './pages/PageCreateBill'
+import PageBill from './pages/PageBill'
+import PageBills from './pages/PageBills'
+import Navigation from './components/common/Navigation'
 
 const App = () => {
   return (
     <div>
+      <Navigation />
       <Routes>
         <Route path='/' element={<PageHome />} />
-        <Route path='/create' element={<PageCreateOrder />} />
-        <Route path='/orders' element={<PageOrders />} />
-        <Route path='/order/:id' element={<PageOrder />} />
+        <Route path='/create' element={<PageCreateBill />} />
+        <Route path='/bills' element={<PageBills />} />
+        <Route path='/bill/:id' element={<PageBill />} />
       </Routes>
     </div>
   )

@@ -1,9 +1,9 @@
 import React from 'react'
-import toast from "react-hot-toast"
+import Banner from '../components/common/Banner'
 
 const PageHome = () => {
     return (
-        <h1>PageHome</h1>
+        <Banner title="OneBill" description="Split the bill, Not the thrill." />
     )
 }
 
