@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Banner from "../components/common/Banner"
+import Loader from '../components/common/Loader'
 import axios from 'axios'
 import toast from "react-hot-toast"
 
@@ -38,8 +39,8 @@ const PageBills = () => {
   return (
     <>
       <Banner title="Bills Page" />
+      {isLoading && <Loader />}
       {bills}
-      {isLoading}
       {isRateLimited}
     </>
   )
