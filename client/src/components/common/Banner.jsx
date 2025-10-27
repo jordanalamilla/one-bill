@@ -5,9 +5,9 @@ const Banner = (props) => {
     const descriptionElement = props.description && <h5>{props.description}</h5>;
 
     return (
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
+        <div className="container">
+            <div className="row">
+                <div className="col-12">
                     {titleElement}
                     {descriptionElement}
                 </div>
