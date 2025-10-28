@@ -1,0 +1,17 @@
+.bills-container {
+    .row {
+        row-gap: 30px;
+    }
+
+    .card-header {
+        text-align: center;
+    }
+
+    table {
+        width: 100%;
+
+        .row-value {
+            text-align: right;
+        }
+    }
+}

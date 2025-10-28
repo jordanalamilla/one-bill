@@ -41,15 +41,17 @@ const PageBills = () => {
       {isLoading && <Loader />}
 
       {bills.length > 0 && !isRateLimited && (
-        <div className="container">
-          <div className="row">
+        <section className="bills-container">
+          <div className="container">
+            <div className="row">
 
-            {bills.map(bill => (
-              <BillPreview key={bill._id} bill={bill} />
-            ))}
+              {bills.map(bill => (
+                <BillPreview key={bill._id} bill={bill} />
+              ))}
 
+            </div>
           </div>
-        </div>
+        </section>
       )}
     </>
   )
