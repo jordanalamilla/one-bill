@@ -11,21 +11,20 @@ const BillPreview = (props) => {
 
                 <div class="card-header">
                     <h2 className="card-title">{bill.billName}</h2>
-                    ***
-                    <h6 className="card-subtitle">{billDate}</h6>
+                    <h6 className="card-subtitle bill-date">{billDate}</h6>
                 </div>
 
                 <div className="card-body">
-                    <h4>Amount Owed</h4>
+                    <h4 className='title-amount-owed'>Amount Owed</h4>
                     <table className='all-order-owe'>
                         <tbody>
                             {bill.billOrders.map(order => (
                                 <tr key={order._id}>
                                     <td className='row-label'>
-                                        <h6>{order.orderPersonName}</h6>
+                                        <h5>{order.orderPersonName}</h5>
                                     </td>
                                     <td className='row-value'>
-                                        <h6>${order.orderOwe}</h6>
+                                        <h5>${order.orderOwe}</h5>
                                     </td>
                                 </tr>
                             ))}
@@ -35,8 +34,8 @@ const BillPreview = (props) => {
                     <table className='bill-total'>
                         <tbody>
                             <tr>
-                                <td className='row-label'><h6>Total</h6></td>
-                                <td className='row-value'>${bill.billTotal}</td>
+                                <td className='row-label'><h4>Total</h4></td>
+                                <td className='row-value'><h4>${bill.billTotal}</h4></td>
                             </tr>
                         </tbody>
                     </table>

@@ -1,4 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap');
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Lilita+One&display=swap');
+
+// Bootstrap variables
 @import './global/custom-variables.scss';
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
+
+// Global site styles
 @import './global/typography.scss';
