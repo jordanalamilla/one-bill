@@ -5,6 +5,7 @@ import PageCreateBill from './pages/PageCreateBill'
 import PageBill from './pages/PageBill'
 import PageBills from './pages/PageBills'
 import Navigation from './components/common/Navigation'
+import './styles/typography.scss'
 
 const App = () => {
   return (
