@@ -6,7 +6,7 @@ const BillPreview = (props) => {
     const billDate = new Date(bill.createdAt).toLocaleString();
 
     return (
-        <div className="col-12 col-md-4">
+        <div className="col-12 col-sm-6 col-md-4 col-xl-3">
             <div className={`card bill ${classNamePaid}`} style={{ width: 100 + '%' }}>
 
                 <div class="card-header">

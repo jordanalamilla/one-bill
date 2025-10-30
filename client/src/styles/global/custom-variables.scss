@@ -12,5 +12,17 @@ $h4-font-size: $font-size-base * 1;
 $h5-font-size: $font-size-base * 1;
 $h6-font-size: $font-size-base * 0.875;
 
+// Body {
+$body-bg: mediumspringgreen;
+
+// Containers
+$container-max-widths: (
+    sm: 100%,
+    md: 100%,
+    lg: 100%,
+    xl: 1140px,
+    xxl: 1320px
+);
+
 // Cards
 $card-cap-bg: #FFF;

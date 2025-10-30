@@ -6,36 +6,43 @@
     }
 
     .bill {
-        border-bottom: unset;
+        @include hard-shadow;
+        border-color: black;
+        border-radius: unset;
+        background-color: white;
 
-        &:after {
-            content: '';
-            --a: 80deg;
-            --s: 20px;
-            --b: 2px;
-            position: absolute;
-            left: 0;
-            bottom: -6px;
-            background: rgba(0, 0, 0, 0.176);
-            height: calc(var(--b) + var(--s)/(2*tan(var(--a)/2)));
-            width: 100%;
-            --_g: var(--s) repeat-x conic-gradient(from calc(var(--a)/-2) at bottom,
-                    #0000, #000 1deg calc(var(--a) - 1deg), #0000 var(--a));
-            mask: 50% calc(-1*var(--b))/var(--_g) exclude, 50%/var(--_g);
-        }
+        // // Zigzag bottom border.
+        // border-bottom: unset;
+
+        // &:after {
+        //     content: '';
+        //     --a: 80deg;
+        //     --s: 20px;
+        //     --b: 2px;
+        //     position: absolute;
+        //     left: 0;
+        //     bottom: -6px;
+        //     background: rgba(0, 0, 0, 0.176);
+        //     height: calc(var(--b) + var(--s)/(2*tan(var(--a)/2)));
+        //     width: 100%;
+        //     --_g: var(--s) repeat-x conic-gradient(from calc(var(--a)/-2) at bottom,
+        //             #0000, #000 1deg calc(var(--a) - 1deg), #0000 var(--a));
+        //     mask: 50% calc(-1*var(--b))/var(--_g) exclude, 50%/var(--_g);
+        // }
     }
 
     .bill-paid {
         position: relative;
+        opacity: 0.4;
 
         &:before {
             content: 'Paid';
-            @include h3-font-style;
+            @include h1-font-style;
             color: red;
             position: absolute;
-            transform: rotate(25deg);
-            top: -10px;
-            right: -10px;
+            transform: rotate(25deg) translateX(50%);
+            top: 30%;
+            right: 50%;
             padding: 5px 20px;
             border: 5px solid red;
             border-radius: 10px;
@@ -46,6 +53,7 @@
 
     .card-header {
         border-bottom: unset;
+        padding-top: 20px;
     }
 
     .card-header,
@@ -60,6 +68,16 @@
         &:before {
             content: '***';
             display: block;
+        }
+    }
+
+    .title-amount-owed {
+
+        &:before,
+        &:after {
+            @include h6-font-style;
+            content: '***';
+            padding: 0 10px;
         }
     }
 

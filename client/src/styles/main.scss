@@ -6,4 +6,5 @@
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 
 // Global site styles
+@import './global/mixins.scss';
 @import './global/typography.scss';
