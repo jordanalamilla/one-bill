@@ -1,3 +1,7 @@
 @mixin hard-shadow {
     box-shadow: 8px 8px 0px rgba(0, 0, 0, 1);
 }
+
+@mixin transition {
+    transition: 0.2s ease all;
+}

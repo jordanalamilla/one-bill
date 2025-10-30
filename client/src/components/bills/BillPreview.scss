@@ -5,30 +5,22 @@
         row-gap: 30px;
     }
 
+    a {
+        @include transition;
+        display: block;
+        text-decoration: unset;
+
+        &:hover,
+        &:focus {
+            transform: translateY(-5px);
+        }
+    }
+
     .bill {
         @include hard-shadow;
         border-color: black;
         border-radius: unset;
         background-color: white;
-
-        // // Zigzag bottom border.
-        // border-bottom: unset;
-
-        // &:after {
-        //     content: '';
-        //     --a: 80deg;
-        //     --s: 20px;
-        //     --b: 2px;
-        //     position: absolute;
-        //     left: 0;
-        //     bottom: -6px;
-        //     background: rgba(0, 0, 0, 0.176);
-        //     height: calc(var(--b) + var(--s)/(2*tan(var(--a)/2)));
-        //     width: 100%;
-        //     --_g: var(--s) repeat-x conic-gradient(from calc(var(--a)/-2) at bottom,
-        //             #0000, #000 1deg calc(var(--a) - 1deg), #0000 var(--a));
-        //     mask: 50% calc(-1*var(--b))/var(--_g) exclude, 50%/var(--_g);
-        // }
     }
 
     .bill-paid {
