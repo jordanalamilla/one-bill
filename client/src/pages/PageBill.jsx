@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import Banner from '../components/common/Banner'
+import Banner from '../components/global/Banner/Banner'
 import { useParams } from "react-router";
 import axios from 'axios';
-import Loader from '../components/common/Loader';
+import Loader from '../components/global/Loader/Loader';
 import toast from "react-hot-toast"
+import BillFull from '../components/bills/BillFull/BillFull';
 
 const PageBill = () => {
   const { id } = useParams();
@@ -48,7 +49,7 @@ const PageBill = () => {
             <div className="row">
               <div className="col-12">
 
-                {bill.billName}
+                {bill && <BillFull bill={bill} />}
 
               </div>
             </div>

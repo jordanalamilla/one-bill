@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import Banner from "../components/common/Banner"
-import Loader from '../components/common/Loader'
-import BillPreview from '../components/bills/BillPreview'
+import Banner from "../components/global/Banner/Banner"
+import Loader from '../components/global/Loader/Loader'
+import BillPreview from '../components/bills/BillPreview/BillPreview'
 import axios from 'axios'
 import toast from "react-hot-toast"
 

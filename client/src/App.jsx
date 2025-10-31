@@ -4,7 +4,7 @@ import PageHome from './pages/PageHome'
 import PageCreateBill from './pages/PageCreateBill'
 import PageBill from './pages/PageBill'
 import PageBills from './pages/PageBills'
-import Navigation from './components/common/Navigation'
+import Navigation from './components/global/Navigation/Navigation'
 import './styles/main.scss'
 
 const App = () => {

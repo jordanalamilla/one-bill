@@ -10,13 +10,15 @@ const BillPreview = (props) => {
             <a href={`/bills/${bill._id}`}>
                 <div className={`card bill ${classNamePaid}`} style={{ width: 100 + '%' }}>
 
+                    {/* Bill name and date */}
                     <div class="card-header">
                         <h2 className="card-title">{bill.billName}</h2>
                         <h6 className="card-subtitle bill-date">{billDate}</h6>
                     </div>
 
+                    {/* Amounts owed */}
                     <div className="card-body">
-                        <h4 className='title-amount-owed'>Amount Owed</h4>
+                        <h4 className='title-amount-owed'>Amounts Owed</h4>
                         <table className='all-order-owe'>
                             <tbody>
                                 {bill.billOrders.map(order => (
@@ -32,6 +34,7 @@ const BillPreview = (props) => {
                             </tbody>
                         </table>
 
+                        {/* Total */}
                         <table className='bill-total'>
                             <tbody>
                                 <tr>
