@@ -46,7 +46,9 @@ const PageBills = () => {
             <div className="row">
 
               {bills.map(bill => (
-                <BillPreview key={bill._id} bill={bill} />
+                <div className="col-12 col-sm-6 col-md-4 col-xl-3">
+                  <BillPreview key={bill._id} bill={bill} />
+                </div>
               ))}
 
             </div>

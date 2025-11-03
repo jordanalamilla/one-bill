@@ -6,47 +6,45 @@ const BillPreview = (props) => {
     const billDate = new Date(bill.createdAt).toLocaleString();
 
     return (
-        <div className="col-12 col-sm-6 col-md-4 col-xl-3">
-            <a href={`/bills/${bill._id}`}>
-                <div className={`card bill ${classNamePaid}`} style={{ width: 100 + '%' }}>
+        <a href={`/bills/${bill._id}`}>
+            <div className={`card bill ${classNamePaid}`} style={{ width: 100 + '%' }}>
 
-                    {/* Bill name and date */}
-                    <div class="card-header">
-                        <h2 className="card-title">{bill.billName}</h2>
-                        <h6 className="card-subtitle bill-date">{billDate}</h6>
-                    </div>
-
-                    {/* Amounts owed */}
-                    <div className="card-body">
-                        <h4 className='title-amount-owed'>Amounts Owed</h4>
-                        <table className='all-order-owe'>
-                            <tbody>
-                                {bill.billOrders.map(order => (
-                                    <tr key={order._id}>
-                                        <td className='row-label'>
-                                            <h5>{order.orderPersonName}</h5>
-                                        </td>
-                                        <td className='row-value'>
-                                            <h5>${order.orderOwe}</h5>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-
-                        {/* Total */}
-                        <table className='bill-total'>
-                            <tbody>
-                                <tr>
-                                    <td className='row-label'><h4>Total</h4></td>
-                                    <td className='row-value'><h4>${bill.billTotal}</h4></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                {/* Bill name and date */}
+                <div class="card-header">
+                    <h2 className="card-title">{bill.billName}</h2>
+                    <h6 className="card-subtitle bill-date">{billDate}</h6>
                 </div>
-            </a>
-        </div>
+
+                {/* Amounts owed */}
+                <div className="card-body">
+                    <h4 className='title-amount-owed'>Amounts Owed</h4>
+                    <table className='all-order-owe'>
+                        <tbody>
+                            {bill.billOrders.map(order => (
+                                <tr key={order._id}>
+                                    <td className='row-label'>
+                                        <h5>{order.orderPersonName}</h5>
+                                    </td>
+                                    <td className='row-value'>
+                                        <h5>${order.orderOwe}</h5>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+                    {/* Total */}
+                    <table className='bill-total'>
+                        <tbody>
+                            <tr>
+                                <td className='row-label'><h4>Total</h4></td>
+                                <td className='row-value'><h4>${bill.billTotal}</h4></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </a>
     )
 }
 
