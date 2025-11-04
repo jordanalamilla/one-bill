@@ -48,9 +48,13 @@
         padding-top: 20px;
     }
 
-    .card-header,
-    .title-amount-owed {
+    .card-header {
         text-align: center;
+    }
+
+    .bill-section {
+        border-bottom: 1px dashed grey;
+        margin-bottom: 20px;
     }
 
     .bill-date {
@@ -63,7 +67,8 @@
         }
     }
 
-    .title-amount-owed {
+    .bill-section-title {
+        text-align: center;
 
         &:before,
         &:after {

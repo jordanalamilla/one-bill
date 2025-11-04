@@ -17,7 +17,7 @@ const BillPreview = (props) => {
 
                 {/* Amounts owed */}
                 <div className="card-body">
-                    <h4 className='title-amount-owed'>Amounts Owed</h4>
+                    <h4 className='bill-section-title'>Amounts Owed</h4>
                     <table className='all-order-owe'>
                         <tbody>
                             {bill.billOrders.map(order => (
