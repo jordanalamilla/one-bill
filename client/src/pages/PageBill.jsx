@@ -9,7 +9,7 @@ const PageBill = () => {
     <>
       <Banner title="View / Edit Bill" />
 
-      <section className="bills-container">
+      <section className="bills-section">
         <div className="container">
           <div className="row">
             <div className="col-12">

@@ -1,0 +1,18 @@
+@import '../../../styles/main.scss';
+
+.navigation-section {
+
+    .navbar {
+        @include hard-shadow;
+        border: 1px solid black;
+    }
+
+    .navbar-collapse {
+        justify-content: flex-end;
+    }
+
+    a.navbar-brand,
+    a.nav-link {
+        @include h4-font-style;
+    }
+}

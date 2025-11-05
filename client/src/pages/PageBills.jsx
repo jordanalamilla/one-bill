@@ -37,11 +37,11 @@ const PageBills = () => {
 
   return (
     <>
-      <Banner title="Bills Page" />
+      <Banner title="All Bills" />
       {isLoading && <Loader />}
 
       {bills.length > 0 && !isRateLimited && (
-        <section className="bills-container">
+        <section className="bills-section">
           <div className="container">
             <div className="row">
 

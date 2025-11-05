@@ -1,12 +1,12 @@
-import React from 'react'
+import './Navigation.scss'
 import { Link } from "react-router"
 
 const Navigation = () => {
     return (
-        <section className="navigation">
+        <section className="navigation-section">
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="#">Navbar</a>
+                    <a className="navbar-brand" href="#">OneBill</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>

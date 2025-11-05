@@ -1,21 +1,23 @@
-.bill {
-    max-width: 700px;
-    margin: 0 auto;
+.bills-section {
+    .bill {
+        max-width: 700px;
+        margin: 0 auto;
 
-    .order-wrapper {
-        border: 1px dashed grey;
-        border-radius: 10px;
-        margin-bottom: 15px;
-        overflow: hidden;
+        .order-wrapper {
+            border: 1px dashed grey;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
 
-        .bill-order td {
-            padding: 3px 10px;
+            .bill-order td {
+                padding: 3px 10px;
+            }
         }
-    }
 
-    .order-owe {
-        background-color: #000;
-        color: #FFF;
-        padding: 10px;
+        .order-owe {
+            background-color: #000;
+            color: #FFF;
+            padding: 10px;
+        }
     }
 }
