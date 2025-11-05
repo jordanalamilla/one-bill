@@ -1,6 +1,7 @@
 @import "../../styles/main.scss";
 
 .bills-container {
+    padding: 30px 0;
 
     .bill {
         @include hard-shadow;
