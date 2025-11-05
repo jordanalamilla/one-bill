@@ -1,0 +1,6 @@
+@import '../../../styles/main.scss';
+
+.loader-text {
+    @include h4-font-style;
+    text-align: center;
+}
