@@ -1,4 +1,4 @@
-// import './BillFull.scss'
+import './BillFull.scss'
 import { useState, useEffect } from "react"
 import axios from 'axios';
 
@@ -41,7 +41,7 @@ const BillFull = (props) => {
     const displayTaxRate = bill.billTaxRate * 100;
 
     return (
-        <div className="card bill" style={{ width: 100 + '%' }}>
+        <div className="card bill">
             {/* Bill name and date */}
             <div className="card-header">
                 <h2 className="card-title">{bill.billName}</h2>
@@ -58,7 +58,7 @@ const BillFull = (props) => {
                         <div className="order-wrapper">
                             <h4 className="order-owe">{order.orderPersonName} Owes ${order.orderOwe}</h4>
 
-                            <table className='bill-order' style={{ marginBottom: 20 + "px" }}>
+                            <table className='bill-order'>
                                 <tbody>
                                     {/* Items */}
                                     {order.orderItems.map(item => (
@@ -72,8 +72,8 @@ const BillFull = (props) => {
                                         </tr>
                                     ))}
                                     <tr>
-                                        <td><h4>Subtotal</h4></td>
-                                        <td><h4>${order.orderSubTotal}</h4></td>
+                                        <td className='row-label'><h4>Subtotal</h4></td>
+                                        <td className='row-value'><h4>${order.orderSubTotal}</h4></td>
                                     </tr>
 
                                 </tbody>
@@ -85,7 +85,7 @@ const BillFull = (props) => {
                 {/* Fees */}
                 <div className="bill-section fee-section">
                     <h4 className="bill-section-title">Fees</h4>
-                    <table className='bill-fees' style={{ marginBottom: 20 + "px" }}>
+                    <table className='bill-fees'>
                         <tbody>
                             {fees.map(fee => (
                                 <tr key={fee._id}>
@@ -105,7 +105,7 @@ const BillFull = (props) => {
                 {/* Discounts */}
                 <div className="bill-section discount-section">
                     <h4 className="bill-section-title">Discounts</h4>
-                    <table className='bill-discounts' style={{ marginBottom: 20 + "px" }}>
+                    <table className='bill-discounts'>
                         <tbody>
                             {discounts.map(discount => (
                                 <tr key={discount._id}>
@@ -128,7 +128,7 @@ const BillFull = (props) => {
                 {/* Bill totals */}
                 <div className="bill-section bill-info-section">
                     <h4 className="bill-section-title">Bill Totals</h4>
-                    <table className='bill-info' style={{ marginBottom: 20 + "px" }}>
+                    <table className='bill-info'>
                         <tbody>
                             <tr>
                                 <td className='row-label'>

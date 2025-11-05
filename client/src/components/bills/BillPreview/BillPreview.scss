@@ -16,13 +16,6 @@
         }
     }
 
-    .bill {
-        @include hard-shadow;
-        border-color: black;
-        border-radius: unset;
-        background-color: white;
-    }
-
     .bill-paid {
         position: relative;
         opacity: 0.4;
@@ -38,60 +31,6 @@
             padding: 5px 20px;
             border: 5px solid red;
             border-radius: 10px;
-        }
-    }
-
-
-
-    .card-header {
-        border-bottom: unset;
-        padding-top: 20px;
-    }
-
-    .card-header {
-        text-align: center;
-    }
-
-    .bill-section {
-        border-bottom: 1px dashed grey;
-        margin-bottom: 20px;
-    }
-
-    .bill-date {
-        border-bottom: 1px dashed grey;
-        padding-bottom: 20px;
-
-        &:before {
-            content: '***';
-            display: block;
-        }
-    }
-
-    .bill-section-title {
-        text-align: center;
-
-        &:before,
-        &:after {
-            @include h6-font-style;
-            content: '***';
-            padding: 0 10px;
-        }
-    }
-
-    table {
-        width: 100%;
-
-        .row-value {
-            text-align: right;
-        }
-
-        &.bill-total {
-            margin-top: 10px;
-            border-top: 1px dashed grey;
-
-            td {
-                padding-top: 20px;
-            }
         }
     }
 }

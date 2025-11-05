@@ -1,3 +1,4 @@
+import '../Bill.scss'
 import './BillPreview.scss'
 
 const BillPreview = (props) => {
@@ -7,7 +8,7 @@ const BillPreview = (props) => {
 
     return (
         <a href={`/bills/${bill._id}`}>
-            <div className={`card bill ${classNamePaid}`} style={{ width: 100 + '%' }}>
+            <div className={`card bill ${classNamePaid}`}>
 
                 {/* Bill name and date */}
                 <div class="card-header">

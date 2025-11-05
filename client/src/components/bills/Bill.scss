@@ -1,0 +1,60 @@
+@import "../../styles/main.scss";
+
+.bills-container {
+
+    .bill {
+        @include hard-shadow;
+        border-color: black;
+        border-radius: unset;
+        background-color: white;
+    }
+
+    .card-header {
+        border-bottom: unset;
+        padding-top: 20px;
+        text-align: center;
+    }
+
+    .bill-date {
+        border-bottom: 1px dashed grey;
+        padding-bottom: 20px;
+
+        &:before {
+            content: '***';
+            display: block;
+        }
+    }
+
+    .bill-section:not(.orders-section):not(:last-child) {
+        border-bottom: 1px dashed grey;
+        margin-bottom: 20px;
+    }
+
+    .bill-section-title {
+        text-align: center;
+
+        &:before,
+        &:after {
+            @include h6-font-style;
+            content: '***';
+            padding: 0 10px;
+        }
+    }
+
+    table {
+        width: 100%;
+
+        .row-value {
+            text-align: right;
+        }
+
+        &.bill-total {
+            margin-top: 10px;
+            border-top: 1px dashed grey;
+
+            td {
+                padding-top: 20px;
+            }
+        }
+    }
+}
