@@ -46,7 +46,7 @@ const BillFull = (props) => {
         <>
             {isLoading && <Loader />}
 
-            {!isRateLimited && (
+            {!isLoading && !isRateLimited && (
 
                 <div className="card bill">
                     {/* Bill name and date */}
