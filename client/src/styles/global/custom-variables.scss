@@ -1,11 +1,30 @@
-// Icons
+// Icons.
 $bootstrap-icons-font-dir: "../../../node_modules/bootstrap-icons/font/fonts";
 @import "bootstrap-icons/font/bootstrap-icons";
+
+// Colours.
+$sage: mediumspringgreen;
+$dark-sage: #6c8126;
+$powder: #F0F4EF;
+$blue: #B4CDED;
+$indigo: #344966;
+$navy: #0D1821;
+$red: rgb(210, 44, 44);
+
+$primary: $indigo;
+$secondary: $blue;
+$success: $dark-sage;
+$danger: $red;
+$light: $powder;
+$dark: $navy;
+
+$body-bg: $blue;
 
 // Font families.
 $display-font-family: "Lilita One", sans-serif;
 $font-family-monospace: "Google Sans Code", monospace;
-$font-family-base: "Helvetica Black", Helvetica, Arial, sans-serif;
+$font-family-helvetica-black: "Helvetica Black", Helvetica, Arial, sans-serif;
+$font-family-base: $font-family-monospace;
 
 // Font sizes.
 $font-size-base: 1rem;
@@ -16,10 +35,7 @@ $h4-font-size: $font-size-base * 1;
 $h5-font-size: $font-size-base * 1;
 $h6-font-size: $font-size-base * 0.875;
 
-// Body {
-$body-bg: mediumspringgreen;
-
-// Containers
+// Containers.
 $container-max-widths: (
     sm: 100%,
     md: 100%,
@@ -28,5 +44,8 @@ $container-max-widths: (
     xxl: 1320px
 );
 
-// Cards
+// Buttons.
+$btn-border-radius: 0;
+
+// Cards.
 $card-cap-bg: #FFF;

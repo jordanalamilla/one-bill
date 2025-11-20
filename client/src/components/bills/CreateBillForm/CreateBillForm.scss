@@ -3,14 +3,22 @@
 .create-bill-form-container {
     form {
         @include hard-shadow;
-        border: 1px solid black;
-        background-color: #FFF;
+        border: 1px solid $dark;
+        background-color: $white;
         padding: 15px;
 
-        fieldset {
+        .inputs-wrapper {
             padding: 15px;
-            margin: 20px 0;
-            border: 1px solid black;
+        }
+
+        .input-row-title {
+            padding: 10px;
+            margin: 0;
+        }
+
+        .input-row {
+            margin: 0;
+            border: 1px solid $dark;
         }
 
         label {
@@ -18,12 +26,55 @@
         }
 
         input {
-            background-color: #FFF;
-            border-bottom: 1px dashed black;
-            border-top: unset;
-            border-right: unset;
-            border-left: unset;
+            border: unset;
             border-radius: unset;
+            padding: 10px;
+
+            &,
+            &:focus {
+                background-color: $light;
+            }
+        }
+
+        /**
+         * Bill input customizations.
+         */
+        .bill-input-section {
+            margin-bottom: 20px;
+        }
+
+        /**
+         * Order input customizations.
+         */
+        .order-inputs {
+            margin-bottom: 20px;
+            border: 1px solid $dark;
+        }
+
+        .order-input-row-title {
+            color: $white;
+            background-color: $dark;
+        }
+
+        /**
+         * Item input customizations.
+         */
+        .item-container:not(:last-of-type) {
+            padding-bottom: 20px;
+            border-bottom: 2px dashed $powder;
+        }
+
+        .item-input-row {
+            margin-top: 0;
+        }
+
+        .item-input-row-title {
+            color: $black;
+            background-color: $blue;
+        }
+
+        .btn-add-row-item {
+            margin-top: 10px;
         }
     }
 }

@@ -13,7 +13,7 @@ const BillFormOrder = () => {
     // Add order.
     function addOrder() {
         let newOrder = {
-            name: `order-${orderCount}`
+            name: `bill-order-${orderCount}`
         };
 
         setOrders(prevOrders => [...prevOrders, newOrder]);
@@ -21,27 +21,35 @@ const BillFormOrder = () => {
     }
 
     return (
-        <div className="bill-container order-inputs-container">
-            {orders.map(order => (
-                <fieldset key={order.name} className={`row g-3 order-input-row ${order.name}`}>
+        <>
+            <div className="input-section order-input-section">
+                {orders.map(order => (
+                    <div key={order.name} className={`order-inputs ${order.name}`}>
 
-                    <div className="col-12 order-input-col">
-                        <label htmlFor={`${order.name}-name-input`} className="form-label">Order Name</label>
-                        <input type='text'
-                            className="form-control create-bill-input order-input"
-                            id={`${order.name}-name-input`}
-                            name={`${order.name}-name-input`} />
+                        <h4 className="input-row-title order-input-row-title">Order</h4>
+
+                        <div className="inputs-wrapper order-inputs-wrapper">
+                            <div className="input-wrapper order-input-wrapper">
+                                <label htmlFor={`${order.name}-name-input`} className="form-label">Order Name</label>
+                                <input type='text'
+                                    className="form-control"
+                                    id={`${order.name}-name-input`}
+                                    name={`${order.name}-name-input`} />
+                            </div>
+
+                            {/* Items */}
+                            <BillFormItem order={order} />
+
+                        </div>
                     </div>
-
-                    {/* Items */}
-                    <BillFormItem order={order} />
-                </fieldset>
-            ))}
+                ))}
+            </div>
 
             {/* Add order button. */}
-            <button className="btn btn-secondary" onClick={addOrder}>Add Order</button>
-            {console.log(orders)}
-        </div>
+            <div className="btn-add-row btn-add-row-order">
+                <button className="btn btn-secondary" onClick={addOrder}>Add Order</button>
+            </div>
+        </>
     )
 }
 

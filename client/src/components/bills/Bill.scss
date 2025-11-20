@@ -5,7 +5,7 @@
 
     .bill {
         @include hard-shadow;
-        border-color: black;
+        border-color: $dark;
         border-radius: unset;
         background-color: white;
     }
