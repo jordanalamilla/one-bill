@@ -5,21 +5,15 @@
         @include hard-shadow;
         border: 1px solid $dark;
         background-color: $white;
-        padding: 15px;
 
         .inputs-wrapper {
-            padding: 15px;
+            padding: 15px 0;
         }
 
-        .input-row-title {
-            padding: 10px;
-            margin: 0;
-        }
-
-        .input-row {
-            margin: 0;
-            border: 1px solid $dark;
-        }
+      .bill-section-wrapper {
+        border: 1px solid $dark;
+        margin: 15px;
+      }
 
         label {
             @include h4-font-style;
@@ -44,37 +38,15 @@
         }
 
         /**
-         * Order input customizations.
-         */
-        .order-inputs {
-            margin-bottom: 20px;
-            border: 1px solid $dark;
-        }
-
-        .order-input-row-title {
-            color: $white;
-            background-color: $dark;
-        }
-
-        /**
          * Item input customizations.
          */
-        .item-container:not(:last-of-type) {
-            padding-bottom: 20px;
-            border-bottom: 2px dashed $powder;
-        }
 
-        .item-input-row {
-            margin-top: 0;
-        }
+      .item-row {
+        padding: 15px 0;
 
-        .item-input-row-title {
-            color: $black;
-            background-color: $blue;
+        &:not(:last-of-type) {
+          border-top: 2px dashed $powder;
         }
-
-        .btn-add-row-item {
-            margin-top: 10px;
-        }
+      }
     }
 }

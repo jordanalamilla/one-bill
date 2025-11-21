@@ -23,16 +23,18 @@ const BillFormItem = ({order}) => {
     return (
         <>
             {items.map(item => (
-                <div key={`${item.orderName}-${item.name}`} className="container item-container px-0">
-                    <div className={`row g-3 item-input-row ${item.orderName}-${item.name}`}>
-                        <div className="col-12 col-sm-6 item-input-col">
+                <div key={`${item.orderName}-${item.name}`} className="row item-row">
+                    <div className="col-12 col-sm-6">
+                        <div className="input-wrapper">
                             <label htmlFor={`${item.orderName}-${item.name}-name-input`} className="form-label">Item Name</label>
                             <input type='text'
                                 className="form-control create-bill-input item-input"
                                 id={`${item.orderName}-${item.name}-name-input`}
                                 name={`${item.orderName}-${item.name}-name-input`} />
                         </div>
-                        <div className="col-12 col-sm-3 item-input-col">
+                    </div>
+                    <div className="col-12 col-sm-3">
+                        <div className="input-wrapper">
                             <label htmlFor={`${item.orderName}-${item.name}-price-input`} className="form-label">Price ($)</label>
                             <input type='number'
                                 step='0.01'
@@ -40,7 +42,9 @@ const BillFormItem = ({order}) => {
                                 id={`${item.orderName}-${item.name}-price-input`}
                                 name={`${item.orderName}-${item.name}-price-input`} />
                         </div>
-                        <div className="col-12 col-sm-3 item-input-col">
+                    </div>
+                    <div className="col-12 col-sm-3">
+                        <div className="input-wrapper">
                             <label htmlFor={`${item.orderName}-${item.name}-quantity-input`} className="form-label">Quantity</label>
                             <input type='text'
                                 className="form-control create-bill-input item-input"
@@ -52,8 +56,12 @@ const BillFormItem = ({order}) => {
             ))}
 
             {/* Add item button. */}
-            <div className="btn-add-row btn-add-row-item">
-                <button className="btn btn-secondary" onClick={addItem}>Add Item</button>
+            <div className="row item-row">
+                <div className="col-12">
+                    <div className="input-wrapper">
+                        <button className="btn btn-secondary" onClick={addItem}>Add Item</button>
+                    </div>
+                </div>
             </div>
         </>
     )

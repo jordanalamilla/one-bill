@@ -31,17 +31,6 @@
         margin-bottom: 20px;
     }
 
-    .bill-section-title {
-        text-align: center;
-
-        &:before,
-        &:after {
-            @include h6-font-style;
-            content: '***';
-            padding: 0 10px;
-        }
-    }
-
     table {
         width: 100%;
 
@@ -58,4 +47,15 @@
             }
         }
     }
+}
+
+.bill-section-title {
+  text-align: center;
+
+  &:before,
+  &:after {
+    @include h6-font-style;
+    content: '***';
+    padding: 0 10px;
+  }
 }
