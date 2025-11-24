@@ -3,6 +3,7 @@ import './BillFormOrder/BillFormOrder.jsx';
 import BillFormOrder from './BillFormOrder/BillFormOrder.jsx';
 import BillFormFee from "./BillFormFee/BillFormFee.jsx";
 import BillFormBill from "./BillFormBill/BillFormBill.jsx";
+import BillFormDiscount from "./BillFormDiscount/BillFormDiscount.jsx";
 
 const CreateBillForm = () => {
 
@@ -10,6 +11,10 @@ const CreateBillForm = () => {
     function handleSubmission(e) {
         e.preventDefault();
         const newBillData = new FormData(e.target);
+
+        for (const pair of newBillData.entries()) {
+            console.log(`${pair[0]}: ${pair[1]}`);
+        }
     }
 
     return (
@@ -25,8 +30,15 @@ const CreateBillForm = () => {
             <BillFormFee />
 
             {/* Discounts */}
+            <BillFormDiscount />
 
-            <button type="submit" className="btn btn-primary">Submit</button>
+            <div className="container">
+                <div className="row">
+                    <div className="col-12">
+                        <button type="submit" className="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
         </form>
     )
 }

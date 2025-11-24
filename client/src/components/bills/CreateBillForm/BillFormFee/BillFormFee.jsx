@@ -29,7 +29,7 @@ const BillFormFee = () => {
                     <div className="container">
                         <div className="row">
 
-                            <div className="col-8">
+                            <div className="col-12 col-sm-8">
                                 <div className="inputs-wrapper fee-inputs-wrapper">
                                     <div className="input-wrapper fee-input-wrapper">
                                         <label htmlFor={`${fee.name}-name-input`} className="form-label">Fee Name</label>
@@ -41,14 +41,14 @@ const BillFormFee = () => {
                                 </div>
                             </div>
 
-                            <div className="col-4">
+                            <div className="col-12 col-sm-4">
                                 <div className="inputs-wrapper fee-inputs-wrapper">
                                     <div className="input-wrapper fee-input-wrapper">
-                                        <label htmlFor={`${fee.name}-name-input`} className="form-label">Fee Price</label>
+                                        <label htmlFor={`${fee.name}-price-input`} className="form-label">Fee Price</label>
                                         <input type='text'
                                                className="form-control"
-                                               id={`${fee.name}-name-input`}
-                                               name={`${fee.name}-name-input`} />
+                                               id={`${fee.name}-price-input`}
+                                               name={`${fee.name}-price-input`} />
                                     </div>
                                 </div>
                             </div>

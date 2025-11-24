@@ -5,6 +5,7 @@
         @include hard-shadow;
         border: 1px solid $dark;
         background-color: $white;
+      padding: 30px 0;
 
         .inputs-wrapper {
             padding: 15px 0;
@@ -19,7 +20,7 @@
             @include h4-font-style;
         }
 
-        input {
+        input:not([type=radio]) {
             border: unset;
             border-radius: unset;
             padding: 10px;
@@ -41,12 +42,8 @@
          * Item input customizations.
          */
 
-      .item-row {
-        padding: 15px 0;
-
-        &:not(:last-of-type) {
-          border-top: 2px dashed $powder;
-        }
+      .item-row:not(:last-of-type) {
+        border-top: 2px dashed $powder;
       }
     }
 }
