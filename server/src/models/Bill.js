@@ -17,11 +17,15 @@ export const billSchema = new Schema(
     {
         billName: {
             type: String,
-            required: true,
+            required: [true, 'Bill name is required.'],
+            minLength: [1, 'Bill name must be at least 1 character.'],
+            trim: true,
         },
         billTaxRate: {
             type: Number,
-            required: true,
+            required: [true, 'Tax rate is required.'],
+            min: [0.01, 'Tax rate must be a decimal value between 0 and 1.'],
+            max: [1, 'Tax rate must be a decimal value between 0 and 1.'],
         },
         billOrders: [orderSchema],
         billFees: [feeSchema],

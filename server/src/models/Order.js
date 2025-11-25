@@ -13,7 +13,12 @@ import { itemSchema } from "./Item.js";
 
 export const orderSchema = new Schema(
     {
-        orderPersonName: String,
+        orderPersonName: {
+            type: String,
+            required: [true, 'A name is required for the order.'],
+            minlength: [1, 'The order name must be at least 1 character.'],
+            trim: true,
+        },
         orderItems: [itemSchema],
         orderSubTotal: {
             type: Number,

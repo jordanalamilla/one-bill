@@ -8,63 +8,60 @@ import Bill from "../models/Bill.js";
 import { createFee, createDiscount, createOrder } from "./utilities/createSubDocuments.js";
 import { calculateOrdersTotal, calculateTaxTotal, calculateFeesTotal, calculateDiscountsTotal, calculateBillTotal, calculateOrderOwe } from "./utilities/billCalculations.js";
 
-export const createBill = (req, res) => {
-    try {
-        const { billName, billTaxRate, billPaid } = req.body;
-        let orders = [];
-        let fees = [];
-        let discounts = [];
+export const createBill = async (req, res) => {
+    const { billName, billTaxRate, billPaid } = req.body;
+    let orders = [];
+    let fees = [];
+    let discounts = [];
 
-        // Create Orders for each Order in the request and add them to the orders array.
-        req.body.billOrders.forEach(order => {
-            orders.push(createOrder(order));
-        });
+    // Create Orders for each Order in the request and add them to the orders array.
+    req.body.billOrders.forEach(order => {
+        orders.push(createOrder(order));
+    });
 
-        // Create Fees for each Fee in the request and add them to the fees array.
-        req.body.billFees.forEach(fee => {
-            fees.push(createFee(fee));
-        });
+    // Create Fees for each Fee in the request and add them to the fees array.
+    req.body.billFees.forEach(fee => {
+        fees.push(createFee(fee));
+    });
 
-        // Create Discounts for each Discount in the request and add them to the discounts array.
-        req.body.billDiscounts.forEach(discount => {
-            discounts.push(createDiscount(discount));
-        });
+    // Create Discounts for each Discount in the request and add them to the discounts array.
+    req.body.billDiscounts.forEach(discount => {
+        discounts.push(createDiscount(discount));
+    });
 
-        // Assemble the Bill.
-        const newBill = new Bill({
-            billName,
-            billTaxRate,
-            billOrders: orders,
-            billFees: fees,
-            billDiscounts: discounts,
-            billOrdersCount: orders.length,
-            billOrdersSubTotal: Math.round((calculateOrdersTotal(orders)) * 100) / 100,
-            billTaxTotal: Math.round((calculateTaxTotal(billTaxRate, calculateOrdersTotal(orders), fees)) * 100) / 100,
-            billFeesTotal: Math.round((calculateFeesTotal(fees)) * 100) / 100,
-            billDiscountsTotal: Math.round((calculateDiscountsTotal(discounts, calculateOrdersTotal(orders))) * 100) / 100,
-            billTotal: Math.round((calculateBillTotal(orders, fees, discounts, billTaxRate)) * 100) / 100,
-            billPaid,
-        });
+    // Assemble the Bill.
+    const newBill = new Bill({
+        billName,
+        billTaxRate,
+        billOrders: orders,
+        billFees: fees,
+        billDiscounts: discounts,
+        billOrdersCount: orders.length,
+        billOrdersSubTotal: calculateOrdersTotal(orders),
+        billTaxTotal: calculateTaxTotal(billTaxRate, calculateOrdersTotal(orders), fees),
+        billFeesTotal: calculateFeesTotal(fees),
+        billDiscountsTotal: calculateDiscountsTotal(discounts, calculateOrdersTotal(orders)),
+        billTotal: calculateBillTotal(orders, fees, discounts, billTaxRate),
+        billPaid,
+    });
 
-        // Calculate what everyone owes.
-        newBill.billOrders.forEach(order => {
-            calculateOrderOwe(order, newBill, fees);
-        });
+    // Calculate what everyone owes.
+    newBill.billOrders.forEach(order => {
+        calculateOrderOwe(order, newBill, fees);
+    });
 
-        // Save the Bill to the database.
-        newBill.save();
-
-        // Success.
-        res.status(201).json({
+    // Save the Bill to the database.
+    await newBill.save().then(savedBill => {
+        res.status(201).send({
             "message": `${billName} bill created.`,
-            "Bill": newBill
         });
 
-    } catch (error) {
-        // Error handling.
-        res.status(500).send("Internal Server Error");
+    }).catch(error => {
         console.error('Error in createBill() controller: ', error);
-    }
+        res.status(500).send({
+            "message": error.message,
+        });
+    });
 }
 
 /** 

@@ -14,11 +14,13 @@ export const feeSchema = new Schema(
     {
         feeName: {
             type: String,
-            required: true,
+            required: [true, 'A fee name is required.'],
+            minlength: [1, 'The fee name must be at least 1 character.'],
+            trim: true,
         },
         feeAmount: {
             type: Number,
-            required: true,
+            required: [true, 'A fee amount is required.'],
         },
         feeIsTaxed: {
             type: Boolean,

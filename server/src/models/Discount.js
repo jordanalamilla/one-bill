@@ -15,11 +15,13 @@ export const discountSchema = new Schema(
     {
         discountName: {
             type: String,
-            required: true,
+            required: [true, 'A discount name is required.'],
+            minlength: [1, 'The discount name must be at least 1 character.'],
+            trim: true,
         },
         discountAmount: {
             type: Number,
-            required: true,
+            required: [true, 'A discount amount is required.'],
         },
     },
     {

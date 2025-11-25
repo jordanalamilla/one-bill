@@ -14,16 +14,18 @@ export const itemSchema = new Schema(
     {
         itemName: {
             type: String,
-            required: true,
+            required: [true, 'An item name is required.'],
+            minLength: [1, 'The item name must be at least 1 character.'],
+            trim: true,
         },
         itemPrice: {
             type: Number,
-            required: true,
+            required: [true, 'Item price is required.'],
         },
         itemQuantity: {
             type: Number,
-            required: true,
-            min: 1,
+            required: [true, 'Item quantity is required.'],
+            min: [1, 'Quantity must be at least 1.'],
             default: 1,
         },
         itemSubTotal: {
