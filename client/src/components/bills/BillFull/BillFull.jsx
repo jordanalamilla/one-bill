@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import axios from 'axios';
 import Loader from '../../global/Loader/Loader';
 import toast from 'react-hot-toast';
+import {r2d} from "../../../utilities/utils.jsx";
 
 const BillFull = (props) => {
     const { billId } = props;
@@ -63,7 +64,7 @@ const BillFull = (props) => {
 
                             {orders.map(order => (
                                 <div className="order-wrapper">
-                                    <h4 className="order-owe">{order.orderPersonName} Owes ${order.orderOwe}</h4>
+                                    <h4 className="order-owe">{order.orderPersonName} Owes ${r2d(order.orderOwe)}</h4>
 
                                     <table className='bill-order'>
                                         <tbody>
@@ -74,13 +75,13 @@ const BillFull = (props) => {
                                                         <h5>{item.itemName} &times; {item.itemQuantity}</h5>
                                                     </td>
                                                     <td className='row-value'>
-                                                        <h5>${item.itemSubTotal}</h5>
+                                                        <h5>${r2d(item.itemSubTotal)}</h5>
                                                     </td>
                                                 </tr>
                                             ))}
                                             <tr>
                                                 <td className='row-label'><h4>Subtotal</h4></td>
-                                                <td className='row-value'><h4>${order.orderSubTotal}</h4></td>
+                                                <td className='row-value'><h4>${r2d(order.orderSubTotal)}</h4></td>
                                             </tr>
 
                                         </tbody>
@@ -100,7 +101,7 @@ const BillFull = (props) => {
                                                 <h5>{fee.feeName}</h5>
                                             </td>
                                             <td className='row-value'>
-                                                <h5>${fee.feeAmount} {fee.feeIsTaxed && <span>(Taxed)</span>}</h5>
+                                                <h5>${r2d(fee.feeAmount)} {fee.feeIsTaxed && <span>(Taxed)</span>}</h5>
                                             </td>
                                         </tr>
                                     ))}
