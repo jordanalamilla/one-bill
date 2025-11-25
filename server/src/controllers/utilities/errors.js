@@ -1,7 +1,7 @@
 /**
  * Display Error
  *
- * Send a vague error message to the user and log the full error in the server.
+ * Send an error message to the user and log the full error in the server console.
  *
  * @param {Object} res The response object
  * @param {Object} error The error object
@@ -9,7 +9,7 @@
  */
 export function displayError(res, error, controllerName) {
     res.status(500).json({
-        message: "Internal server error"
+        message: error.message,
     });
 
     console.error(`Error in ${controllerName} controller: `, error);

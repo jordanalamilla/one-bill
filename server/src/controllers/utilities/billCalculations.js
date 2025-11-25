@@ -24,7 +24,7 @@ export function calculateOrderOwe(order, bill) {
     const orderOwe = orderSubTotal + orderTaxTotal + orderFeesTotal - orderDiscountTotal;
 
     order.orderWeight = orderWeight;
-    order.orderOwe = Math.round((orderOwe) * 100) / 100;
+    order.orderOwe = orderOwe;
 }
 
 /**
