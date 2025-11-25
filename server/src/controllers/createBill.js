@@ -7,6 +7,7 @@
 import Bill from "../models/Bill.js";
 import { createFee, createDiscount, createOrder } from "./utilities/createSubDocuments.js";
 import { calculateOrdersTotal, calculateTaxTotal, calculateFeesTotal, calculateDiscountsTotal, calculateBillTotal, calculateOrderOwe } from "./utilities/billCalculations.js";
+import {displayError} from "./utilities/errors.js";
 
 export const createBill = async (req, res) => {
     const { billName, billTaxRate, billPaid } = req.body;
@@ -52,15 +53,12 @@ export const createBill = async (req, res) => {
 
     // Save the Bill to the database.
     await newBill.save().then(savedBill => {
-        res.status(201).send({
-            "message": `${billName} bill created.`,
+        res.status(201).json({
+            message: `${billName} bill created`,
         });
 
     }).catch(error => {
-        console.error('Error in createBill() controller: ', error);
-        res.status(500).send({
-            "message": error.message,
-        });
+        displayError(res, error, "createBill");
     });
 }
 

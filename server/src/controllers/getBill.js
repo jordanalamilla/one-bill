@@ -5,6 +5,7 @@
  */
 
 import Bill from "../models/Bill.js";
+import {displayError} from "./utilities/errors.js";
 
 export async function getBill(req, res) {
     try {
@@ -13,8 +14,6 @@ export async function getBill(req, res) {
         res.status(200).json(requestedBill);
 
     } catch (error) {
-        // Error handling.
-        res.status(500).send("Bill not found.");
-        console.error('Error in getAllBills() controller: ', error.message);
+        displayError(res, error, "getBill");
     }
 }

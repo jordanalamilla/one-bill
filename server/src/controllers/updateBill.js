@@ -6,6 +6,7 @@
 
 import Bill from "../models/Bill.js";
 import { recalculateEntireBill } from "./utilities/billUpdates.js";
+import {displayError} from "./utilities/errors.js";
 
 export async function updateBill(req, res) {
     const { billName } = req.body;
@@ -189,8 +190,6 @@ export async function updateBill(req, res) {
         }
 
     } catch (error) {
-        // Error handling.
-        res.status(404).json({ message: "Bill not found." });
-        console.error("Error caught in updateBill() controller: ", error);
+        displayError(res, error, "updateBill");
     }
 }
