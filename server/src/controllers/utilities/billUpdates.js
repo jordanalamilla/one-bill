@@ -34,13 +34,13 @@ export async function recalculateEntireBill(billId) {
                 orderSubTotal += itemSubTotal;
 
                 // Set the new Item sub total.
-                item.itemSubTotal = Math.round((itemSubTotal) * 100) / 100;
+                item.itemSubTotal = itemSubTotal;
             });
 
             billOrdersSubTotal += orderSubTotal;
 
             // Set the new Order sub total.
-            order.orderSubTotal = Math.round((orderSubTotal) * 100) / 100;
+            order.orderSubTotal = orderSubTotal;
         });
 
         // Discount recalculations
@@ -53,11 +53,11 @@ export async function recalculateEntireBill(billId) {
         });
 
         // Recalculate top level Bill amounts and set them.
-        bill.billOrdersSubTotal = Math.round((billOrdersSubTotal) * 100) / 100;
-        bill.billTaxTotal = Math.round((calculateTaxTotal(bill.billTaxRate, billOrdersSubTotal, bill.billFees)) * 100) / 100;
-        bill.billFeesTotal = Math.round((calculateFeesTotal(bill.billFees)) * 100) / 100;
-        bill.billDiscountsTotal = Math.round((totalDiscount) * 100) / 100;
-        bill.billTotal = Math.round((calculateBillTotal(bill.billOrders, bill.billFees, bill.billDiscounts, bill.billTaxRate)) * 100) / 100;
+        bill.billOrdersSubTotal = billOrdersSubTotal;
+        bill.billTaxTotal = calculateTaxTotal(bill.billTaxRate, billOrdersSubTotal, bill.billFees);
+        bill.billFeesTotal = calculateFeesTotal(bill.billFees);
+        bill.billDiscountsTotal = totalDiscount;
+        bill.billTotal = calculateBillTotal(bill.billOrders, bill.billFees, bill.billDiscounts, bill.billTaxRate);
 
         // Order Owe recalculation.
         bill.billOrders.forEach(order => {
@@ -69,7 +69,7 @@ export async function recalculateEntireBill(billId) {
             const orderOwe = order.orderSubTotal + orderTaxTotal + orderFeesTotal - orderDiscountTotal;
 
             // Set the amount owed.
-            order.orderOwe = Math.round((orderOwe) * 100) / 100;
+            order.orderOwe = orderOwe;
         });
 
         // Save all recalculations.
