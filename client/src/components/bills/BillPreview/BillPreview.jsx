@@ -1,5 +1,6 @@
 import '../Bill.scss'
 import './BillPreview.scss'
+import {r2d} from '../../../utilities/utils.jsx'
 
 const BillPreview = (props) => {
     const { bill } = props;
@@ -27,7 +28,7 @@ const BillPreview = (props) => {
                                         <h5>{order.orderPersonName}</h5>
                                     </td>
                                     <td className='row-value'>
-                                        <h5>${order.orderOwe}</h5>
+                                        <h5>${r2d(order.orderOwe)}</h5>
                                     </td>
                                 </tr>
                             ))}
@@ -39,7 +40,7 @@ const BillPreview = (props) => {
                         <tbody>
                             <tr>
                                 <td className='row-label'><h4>Total</h4></td>
-                                <td className='row-value'><h4>${bill.billTotal}</h4></td>
+                                <td className='row-value'><h4>${r2d(bill.billTotal)}</h4></td>
                             </tr>
                         </tbody>
                     </table>
