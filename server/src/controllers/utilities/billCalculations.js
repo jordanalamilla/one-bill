@@ -130,8 +130,10 @@ export function calculateDiscountsTotal(discounts, ordersTotal) {
     let totalDiscount = 0;
 
     discounts.forEach(discount => {
-        if (discount.discountAmount < 1) {
-            totalDiscount += ordersTotal * discount.discountAmount;
+        if(discount.discountType) {
+            const discountPercent = discount.discountAmount * 0.01;
+            totalDiscount += ordersTotal * discountPercent;
+
         } else {
             totalDiscount += discount.discountAmount;
         }

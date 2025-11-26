@@ -45,8 +45,10 @@ export async function recalculateEntireBill(billId) {
 
         // Discount recalculations
         bill.billDiscounts.forEach(discount => {
-            if (discount.discountAmount < 1) {
-                totalDiscount += billOrdersSubTotal * discount.discountAmount;
+            if(discount.discountType) {
+                const discountPercent = discount.discountAmount * 0.01;
+                totalDiscount += billOrdersSubTotal * discountPercent;
+
             } else {
                 totalDiscount += discount.discountAmount;
             }

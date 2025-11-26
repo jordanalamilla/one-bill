@@ -63,7 +63,7 @@ const BillFull = (props) => {
                             <h4 className='bill-section-title'>Orders</h4>
 
                             {orders.map(order => (
-                                <div className="order-wrapper">
+                                <div key={order._id} className="order-wrapper">
                                     <h4 className="order-owe">{order.orderPersonName} Owes ${r2d(order.orderOwe)}</h4>
 
                                     <table className='bill-order'>
@@ -121,10 +121,9 @@ const BillFull = (props) => {
                                                 <h5>{discount.discountName}</h5>
                                             </td>
                                             <td className='row-value'>
-                                                <h5>-{discount.discountAmount < 1 && discount.discountAmount > 0 ?
-                                                    discount.discountAmount * 100 + '%'
-                                                    : '$' + discount.discountAmount}
-                                                </h5>
+                                                {discount.discountType ?
+                                                    <h5>-{discount.discountAmount}%</h5> :
+                                                    <h5>-${r2d(discount.discountAmount)}</h5> }
                                             </td>
                                         </tr>
                                     ))}
@@ -143,7 +142,7 @@ const BillFull = (props) => {
                                             <h5>Tax Total</h5>
                                         </td>
                                         <td className='row-value'>
-                                            <h5>${bill.billTaxTotal} ({displayTaxRate}%)</h5>
+                                            <h5>${r2d(bill.billTaxTotal)} ({displayTaxRate}%)</h5>
                                         </td>
                                     </tr>
                                     <tr>
@@ -151,7 +150,7 @@ const BillFull = (props) => {
                                             <h5>Subtotal</h5>
                                         </td>
                                         <td className='row-value'>
-                                            <h5>${bill.billOrdersSubTotal}</h5>
+                                            <h5>${r2d(bill.billOrdersSubTotal)}</h5>
                                         </td>
                                     </tr>
                                     <tr>
@@ -159,7 +158,7 @@ const BillFull = (props) => {
                                             <h5>Fees Total</h5>
                                         </td>
                                         <td className='row-value'>
-                                            <h5>${bill.billFeesTotal}</h5>
+                                            <h5>${r2d(bill.billFeesTotal)}</h5>
                                         </td>
                                     </tr>
                                     <tr>
@@ -167,7 +166,7 @@ const BillFull = (props) => {
                                             <h5>Discounts Total</h5>
                                         </td>
                                         <td className='row-value'>
-                                            <h5>${bill.billDiscountsTotal}</h5>
+                                            <h5>${r2d(bill.billDiscountsTotal)}</h5>
                                         </td>
                                     </tr>
                                     <tr>
@@ -175,7 +174,7 @@ const BillFull = (props) => {
                                             <h4>Total</h4>
                                         </td>
                                         <td className='row-value'>
-                                            <h4>${bill.billTotal}</h4>
+                                            <h4>${r2d(bill.billTotal)}</h4>
                                         </td>
                                     </tr>
                                 </tbody>

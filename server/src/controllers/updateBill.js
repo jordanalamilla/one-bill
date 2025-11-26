@@ -160,7 +160,7 @@ export async function updateBill(req, res) {
         if (req.body.discountId !== undefined) {
 
             // Get the front end request data.
-            const { discountId, discountName, discountAmount } = req.body;
+            const { discountId, discountName, discountAmount, discountType } = req.body;
 
             // Find the Bill, find the Discount and update the desired fields.
             await Bill.findOneAndUpdate(
@@ -169,6 +169,7 @@ export async function updateBill(req, res) {
                     $set: {
                         'billDiscounts.$[discount].discountName': discountName,
                         'billDiscounts.$[discount].discountAmount': discountAmount,
+                        'billDiscounts.$[discount].discountType': discountType,
                     }
                 },
                 {

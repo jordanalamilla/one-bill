@@ -23,6 +23,11 @@ export const discountSchema = new Schema(
             type: Number,
             required: [true, 'A discount amount is required.'],
         },
+        discountType: {
+            type: Boolean,
+            required: [true, 'A discount type is required.'],
+            default: false // False = Dollars, True = Percent
+        },
     },
     {
         timestamps: true

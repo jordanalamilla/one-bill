@@ -38,11 +38,12 @@ export function createFee(fee) {
  * @returns Object
  */
 export function createDiscount(discount) {
-    const { discountName, discountAmount } = discount;
+    const { discountName, discountAmount, discountType } = discount;
 
     const newDiscount = new Discount({
         discountName,
-        discountAmount
+        discountAmount,
+        discountType
     });
 
     return newDiscount;
