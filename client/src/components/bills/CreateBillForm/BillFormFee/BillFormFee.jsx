@@ -36,7 +36,8 @@ const BillFormFee = () => {
                                         <input type='text'
                                                className="form-control"
                                                id={`${fee.name}-name-input`}
-                                               name={`${fee.name}-name-input`} />
+                                               name={`${fee.name}-name-input`}
+                                               required />
                                     </div>
                                 </div>
                             </div>
@@ -48,7 +49,8 @@ const BillFormFee = () => {
                                         <input type='text'
                                                className="form-control"
                                                id={`${fee.name}-price-input`}
-                                               name={`${fee.name}-price-input`} />
+                                               name={`${fee.name}-price-input`}
+                                               required />
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +63,7 @@ const BillFormFee = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-12">
-                        <button className="btn btn-secondary" onClick={addFee}>Add Fee</button>
+                        <button type="button" className="btn btn-secondary" onClick={addFee}>Add Fee</button>
                     </div>
                 </div>
             </div>

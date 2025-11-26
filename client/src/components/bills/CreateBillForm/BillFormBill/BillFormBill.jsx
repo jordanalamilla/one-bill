@@ -13,7 +13,8 @@ const BillFormBill = () => {
                             <input type='text'
                                    className="form-control create-bill-input bill-input"
                                    id='bill-input-name'
-                                   name='bill-input-name' />
+                                   name='bill-input-name'
+                                   required />
                         </div>
                     </div>
                     <div className="col-12 col-md-3">
@@ -24,7 +25,8 @@ const BillFormBill = () => {
                                    className="form-control create-bill-input bill-input"
                                    id='bill-input-tax-rate'
                                    name='bill-input-tax-rate'
-                                   placeholder='0.13' />
+                                   placeholder='0.13'
+                                   required />
                         </div>
                     </div>
                 </div>

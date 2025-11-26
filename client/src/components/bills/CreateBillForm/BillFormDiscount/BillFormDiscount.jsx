@@ -37,7 +37,8 @@ const BillFormDiscount = () => {
                                         <input type='text'
                                                className="form-control"
                                                id={`${discount.name}-name-input`}
-                                               name={`${discount.name}-name-input`} />
+                                               name={`${discount.name}-name-input`}
+                                               required />
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +51,8 @@ const BillFormDiscount = () => {
                                         <input type='text'
                                                className="form-control"
                                                id={`${discount.name}-amount-input`}
-                                               name={`${discount.name}-amount-input`} />
+                                               name={`${discount.name}-amount-input`}
+                                               required />
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +69,8 @@ const BillFormDiscount = () => {
                                                    type="radio"
                                                    name={`${discount.name}-type-input`}
                                                    id={`${discount.name}-type-input-dollars`}
-                                                    value="dollars"/>
+                                                    value="dollars"
+                                                   defaultChecked/>
 
                                             <label className="form-check-label"
                                                    htmlFor={`${discount.name}-type-input-dollars`}>
@@ -100,7 +103,7 @@ const BillFormDiscount = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-12">
-                        <button className="btn btn-secondary" onClick={addDiscount}>Add Discount</button>
+                        <button type="button" className="btn btn-secondary" onClick={addDiscount}>Add Discount</button>
                     </div>
                 </div>
             </div>

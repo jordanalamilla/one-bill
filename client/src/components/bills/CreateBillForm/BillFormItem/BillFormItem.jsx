@@ -32,7 +32,8 @@ const BillFormItem = ({order}) => {
                             <input type='text'
                                 className="form-control create-bill-input item-input"
                                 id={`${item.orderName}-${item.name}-name-input`}
-                                name={`${item.orderName}-${item.name}-name-input`} />
+                                name={`${item.orderName}-${item.name}-name-input`}
+                                required/>
                         </div>
                     </div>
 
@@ -44,7 +45,8 @@ const BillFormItem = ({order}) => {
                                 step='0.01'
                                 className="form-control create-bill-input item-input"
                                 id={`${item.orderName}-${item.name}-price-input`}
-                                name={`${item.orderName}-${item.name}-price-input`} />
+                                name={`${item.orderName}-${item.name}-price-input`}
+                                required />
                         </div>
                     </div>
 
@@ -55,7 +57,8 @@ const BillFormItem = ({order}) => {
                             <input type='text'
                                 className="form-control create-bill-input item-input"
                                 id={`${item.orderName}-${item.name}-quantity-input`}
-                                name={`${item.orderName}-${item.name}-quantity-input`} />
+                                name={`${item.orderName}-${item.name}-quantity-input`}
+                                required />
                         </div>
                     </div>
                 </div>
@@ -65,7 +68,7 @@ const BillFormItem = ({order}) => {
             <div className="row item-row">
                 <div className="col-12">
                     <div className="inputs-wrapper">
-                        <button className="btn btn-secondary" onClick={addItem}>Add Item</button>
+                        <button type="button" className="btn btn-secondary" onClick={addItem}>Add Item</button>
                     </div>
                 </div>
             </div>

@@ -34,7 +34,8 @@ const BillFormOrder = () => {
                                         <input type='text'
                                             className="form-control"
                                             id={`${order.name}-name-input`}
-                                            name={`${order.name}-name-input`} />
+                                            name={`${order.name}-name-input`}
+                                            required />
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +51,7 @@ const BillFormOrder = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-12">
-                        <button className="btn btn-secondary" onClick={addOrder}>Add Order</button>
+                        <button type="button" className="btn btn-secondary" onClick={addOrder}>Add Order</button>
                     </div>
                 </div>
             </div>
