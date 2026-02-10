@@ -23,7 +23,7 @@ const BillFormItem = ({order}) => {
     return (
         <>
             {items.map(item => (
-                <div key={`${item.orderName}-${item.name}`} className="row item-row">
+                <div key={`${item.orderName}-${item.name}`} id={`${item.orderName}-${item.name}`} className="row item-row">
 
                     {/* Name */}
                     <div className="col-12 col-md-6">

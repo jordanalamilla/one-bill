@@ -4,10 +4,21 @@
     padding: 30px 0;
 
     .bill {
-        @include hard-shadow;
-        border-color: $dark;
+        @include soft-shadow;
+        border: 0;
         border-radius: unset;
         background-color: white;
+
+        &:after {
+            content: '';
+            position: absolute;
+            display: block;
+            background-image: url("../../assets/receipt-edge.svg");
+            background-repeat: repeat-x;
+            bottom: -20px;
+            width: 100%;
+            height: 40px;
+        }
     }
 
     .card-header {

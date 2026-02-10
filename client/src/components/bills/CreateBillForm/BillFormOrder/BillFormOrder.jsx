@@ -24,7 +24,7 @@ const BillFormOrder = () => {
         <div className="bill-input-section">
             {orderCount ? <h4 className="bill-section-title">Order Details</h4> : null}
             {orders.map(order => (
-                <div key={order.name} className={`bill-section-wrapper ${order.name}`}>
+                <div key={order.name} id={order.name} className={`bill-section-wrapper`}>
                     <div className="container">
                         <div className="row">
                             <div className="col-12">

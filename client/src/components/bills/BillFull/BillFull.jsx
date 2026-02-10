@@ -4,6 +4,7 @@ import axios from 'axios';
 import Loader from '../../global/Loader/Loader';
 import toast from 'react-hot-toast';
 import {r2d} from "../../../utilities/utils.jsx";
+import PaidCheck from "../PaidCheck/PaidCheck.jsx";
 
 const BillFull = (props) => {
     const { billId } = props;
@@ -54,6 +55,7 @@ const BillFull = (props) => {
                     <div className="card-header">
                         <h2 className="card-title">{bill.billName}</h2>
                         <h6 className="card-subtitle bill-date">{new Date(bill.createdAt).toLocaleString()}</h6>
+                        <PaidCheck billId={bill._id} billPaidProp={bill.billPaid} />
                     </div>
 
                     <div className="card-body">
